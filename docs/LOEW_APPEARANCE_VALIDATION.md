@@ -16,7 +16,7 @@ This extends, rather than replaces, `LOEW_REMAINING_WORK.md`. The old/native lay
 
 ## Checks actually run
 - 63 Node assertions passed: dominant color/alpha handling, monochrome fallback, tinted foreground/link contrast, ID parsing and preference validation.
-- 47 Chromium DOM-fixture checks passed: automatic/custom/neutral states, preview/cancel/save/reset, modeled persistence, observer settling, loading/running/stopping pulse behavior and reduced motion; Appearance dialog containment at 390/768/1280 px; Downloads card containment and section widths at 390/768/1280/1920 px; unchanged 40% test progress and opaque logo/background separation.
+- 49 Chromium DOM-fixture checks passed: automatic/custom/neutral states, preview/cancel/save/reset, modeled persistence, observer settling, loading/running/stopping pulse behavior and reduced motion; Appearance dialog containment at 390/768/1280 px; Downloads card containment and section widths at 390/768/1280/1920 px; unchanged 40% test progress and opaque logo/background separation.
 - JavaScript syntax checks and shell `bash -n` passed.
 
 Browser navigation in the cloud sandbox is administrator-blocked. Tests therefore rendered local source-informed HTML in memory and used a mocked localStorage adapter. These are not live Steam screenshots, not a full current Steam CSS/JS integration test, and not evidence of real CEF-profile persistence. Game-details fixtures inherit the earlier structural test hierarchy; Downloads fixtures follow the inspected Steam source hierarchy. UIAudit, Impeccable and UI UX Designer were not exposed in current tool discovery, so no third-party/plugin audit is claimed.
