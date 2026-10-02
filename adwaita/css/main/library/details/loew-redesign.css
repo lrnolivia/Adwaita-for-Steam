@@ -1,0 +1,270 @@
+/*
+ * loew game details
+ * Native-Steam structure with Adwaita finish.
+ *
+ * Scope: Steam desktop app-details page only.
+ * The existing Play / options header is intentionally untouched.
+ */
+
+:root
+{
+	--loew-library-details-max-width: 1320px;
+	--loew-library-details-side-width: 336px;
+	--loew-library-details-gap: 24px;
+
+	/* Give game art room again while keeping the current play-bar geometry. */
+	--adw-library-details-hero-image-height: 340px;
+}
+
+/* Stop v4 from reserving a permanent full-height sidebar rail. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+{
+	padding-right: 0 !important;
+}
+
+/*
+ * Restore the native Steam overview relationship:
+ * primary game activity on the left, useful game info on the right.
+ */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div[class*="appdetailsoverview_Container_"],
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._27RcNu8aXKBpYkHcNNrt-X
+{
+	display: grid !important;
+	grid-template-columns: minmax(0, 1fr) minmax(288px, var(--loew-library-details-side-width)) !important;
+	gap: var(--loew-library-details-gap) !important;
+	align-items: start !important;
+	box-sizing: border-box !important;
+	width: min(100%, var(--loew-library-details-max-width)) !important;
+	max-width: var(--loew-library-details-max-width) !important;
+	margin: 0 auto !important;
+	padding: 24px !important;
+}
+
+/* Primary column. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.OhSdLYuggDtBcWjYP0j_9
+{
+	min-width: 0 !important;
+	width: 100% !important;
+}
+
+/* Let sections use the primary column instead of the old 860px clamp. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.OhSdLYuggDtBcWjYP0j_9
+div._3yTl3RiWfo-Itg-xp967wP,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.OhSdLYuggDtBcWjYP0j_9
+div._2r4TK4BAuU-J4FuF_O7v_5
+{
+	width: 100% !important;
+	max-width: none !important;
+	box-sizing: border-box !important;
+	margin: 0 !important;
+	padding: 0 0 24px !important;
+}
+
+/*
+ * Right column becomes normal page content.
+ * It can remain visible while scrolling, but it is no longer a separate rail.
+ */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div[class*="appdetailsoverview_RightColumn_"],
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2aor4XVOYzN1PBSREk0UbO
+{
+	position: sticky !important;
+	z-index: auto !important;
+	top: 16px !important;
+	right: auto !important;
+	bottom: auto !important;
+	width: 100% !important;
+	max-width: none !important;
+	height: max-content !important;
+	max-height: none !important;
+	box-sizing: border-box !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	overflow: visible !important;
+	background: transparent !important;
+	color: var(--adw-window-fg) !important;
+	border: 0 !important;
+	animation: none !important;
+}
+
+/* Give right-column modules breathing room instead of forming one grey wall. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2aor4XVOYzN1PBSREk0UbO > div,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2aor4XVOYzN1PBSREk0UbO
+div._2r4TK4BAuU-J4FuF_O7v_5
+{
+	margin: 0 0 20px !important;
+}
+
+/*
+ * Hero: keep Steam's artwork dominant.
+ * Remove v4's side crop/mask and blend the image softly into the page.
+ * Play/options themselves are not restyled here.
+ */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ
+{
+	overflow: hidden !important;
+	background: var(--adw-window-bg) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ
+.HNbe3eZf6H7dtJ042x1vM
+{
+	width: 100% !important;
+	margin: 0 !important;
+	object-fit: cover !important;
+	object-position: center 42% !important;
+	mask-image: none !important;
+	-webkit-mask-image: none !important;
+	filter: saturate(0.96) contrast(1.02) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ::after
+{
+	content: "" !important;
+	position: absolute !important;
+	inset: 0 !important;
+	z-index: 1 !important;
+	pointer-events: none !important;
+	background:
+		linear-gradient(
+			to bottom,
+			transparent 0%,
+			transparent 58%,
+			color-mix(in srgb, var(--adw-window-bg) 18%, transparent) 72%,
+			color-mix(in srgb, var(--adw-window-bg) 72%, transparent) 90%,
+			var(--adw-window-bg) 100%
+		) !important;
+	box-shadow: inset 0 1px 0 color-mix(in srgb, currentColor var(--adw-border-opacity), transparent) !important;
+}
+
+/*
+ * Activity: individual cards rather than one compressed list.
+ * This also prevents the date/event text from visually colliding with cards.
+ */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib > div > div.UVeN0kaD3zv1feMj_mMw5,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._31ptFGGMZrSQc5BCX1e5lm > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5
+{
+	margin: 0 0 12px !important;
+	border-radius: var(--adw-card-radius) !important;
+	box-shadow: var(--adw-card-shadow), var(--adw-card-outline-last) !important;
+	overflow: hidden !important;
+}
+
+/* Reset list-specific corner rules now that every event is its own card. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib > div > div.UVeN0kaD3zv1feMj_mMw5,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5
+{
+	border-top-left-radius: var(--adw-card-radius) !important;
+	border-top-right-radius: var(--adw-card-radius) !important;
+	border-bottom-left-radius: var(--adw-card-radius) !important;
+	border-bottom-right-radius: var(--adw-card-radius) !important;
+}
+
+/* Event/date metadata gets its own line above content instead of sitting on it. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1ujzuoxGhLunHZQqHAqRgg
+{
+	position: relative !important;
+	display: block !important;
+	width: auto !important;
+	height: auto !important;
+	min-height: 18px !important;
+	margin: 18px 4px 8px !important;
+	padding: 0 !important;
+	overflow: visible !important;
+	-webkit-line-clamp: unset !important;
+}
+
+/* Section headings read as page structure, not card contents. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.OhSdLYuggDtBcWjYP0j_9 h2._1Q2q_tQ9_Eq8YdEHNAHS3F
+{
+	margin: 0 0 8px !important;
+}
+
+/* Keep major news/update artwork generous. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
+{
+	width: clamp(220px, 32%, 360px) !important;
+	min-width: 220px !important;
+	max-width: 360px !important;
+}
+
+/*
+ * Responsive collapse.
+ * At medium sizes the info column joins the normal flow and becomes a
+ * compact two-column module grid. On narrow windows it becomes one column.
+ */
+@media (max-width: 1080px)
+{
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div[class*="appdetailsoverview_Container_"],
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._27RcNu8aXKBpYkHcNNrt-X
+	{
+		grid-template-columns: minmax(0, 1fr) !important;
+		padding: 20px !important;
+	}
+
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2aor4XVOYzN1PBSREk0UbO
+	{
+		position: relative !important;
+		top: auto !important;
+		display: grid !important;
+		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+		gap: 16px !important;
+	}
+
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2aor4XVOYzN1PBSREk0UbO > div,
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2aor4XVOYzN1PBSREk0UbO
+	div._2r4TK4BAuU-J4FuF_O7v_5
+	{
+		margin: 0 !important;
+	}
+}
+
+@media (max-width: 720px)
+{
+	:root
+	{
+		--adw-library-details-hero-image-height: 280px;
+	}
+
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div[class*="appdetailsoverview_Container_"],
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._27RcNu8aXKBpYkHcNNrt-X
+	{
+		padding: 16px !important;
+		gap: 16px !important;
+	}
+
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2aor4XVOYzN1PBSREk0UbO
+	{
+		grid-template-columns: minmax(0, 1fr) !important;
+	}
+}
