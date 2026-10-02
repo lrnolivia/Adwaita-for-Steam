@@ -517,3 +517,280 @@ body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1b6LYWVijW-9E4YV0keDWZ:active
 	box-shadow:
 		inset 0 1px 2px rgba(0, 0, 0, .14) !important;
 }
+
+
+/* ==========================================================================
+ * pass 6: tighter scale, restored surfaces, larger hero
+ * ========================================================================== */
+
+:root
+{
+	--loew-details-max-width: 1340px;
+	--loew-details-side-width: 336px;
+	--loew-details-gap: 18px;
+	--loew-details-hero-height: clamp(400px, 31vw, 470px);
+	--loew-surface-1: color-mix(in srgb, var(--adw-window-fg) 4%, var(--adw-window-bg));
+	--loew-surface-2: color-mix(in srgb, var(--adw-window-fg) 7%, var(--adw-window-bg));
+	--loew-surface-3: color-mix(in srgb, var(--adw-window-fg) 10%, var(--adw-window-bg));
+}
+
+/* Larger hero, same native placement. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ
+{
+	height: var(--loew-details-hero-height) !important;
+	min-height: var(--loew-details-hero-height) !important;
+	max-height: var(--loew-details-hero-height) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ div.NZMJ6g2iVnFsOOp-lDmIP,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ div.QlR9EFwTdUNm_J5vx54_Z,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
+{
+	height: 100% !important;
+	min-height: 100% !important;
+	max-height: 100% !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
+{
+	width: 100% !important;
+	margin: 0 !important;
+	object-fit: cover !important;
+	object-position: center 45% !important;
+}
+
+/* Content frame: tighten width, side-column relationship and outside padding. */
+body.DesktopUI div[class*="appdetails_Container_"] div[class*="appdetailsoverview_Container_"],
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._27RcNu8aXKBpYkHcNNrt-X
+{
+	width: min(100%, var(--loew-details-max-width)) !important;
+	max-width: var(--loew-details-max-width) !important;
+	box-sizing: border-box !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding: 14px 18px 28px !important;
+	background: var(--adw-window-bg) !important;
+}
+
+/* Main column stays fluid. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div.OhSdLYuggDtBcWjYP0j_9
+{
+	min-width: 0 !important;
+	flex: 1 1 auto !important;
+}
+
+/* Right column is a little narrower and closer to the content. */
+body.DesktopUI div[class*="appdetails_Container_"] div[class*="appdetailsoverview_RightColumn_"],
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
+{
+	width: var(--loew-details-side-width) !important;
+	min-width: var(--loew-details-side-width) !important;
+	max-width: var(--loew-details-side-width) !important;
+	flex: 0 0 var(--loew-details-side-width) !important;
+	box-sizing: border-box !important;
+	margin-left: var(--loew-details-gap) !important;
+	padding: 0 !important;
+}
+
+/* Tighten left-column section wrappers. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.OhSdLYuggDtBcWjYP0j_9 div._3yTl3RiWfo-Itg-xp967wP,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.OhSdLYuggDtBcWjYP0j_9 div._2r4TK4BAuU-J4FuF_O7v_5
+{
+	box-sizing: border-box !important;
+	padding-top: 8px !important;
+	padding-bottom: 12px !important;
+}
+
+/* Restore modern 4.x surface tokens where 3.17's old RGB tokens go transparent. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib > div > div.UVeN0kaD3zv1feMj_mMw5,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5
+{
+	background-color: var(--loew-surface-2) !important;
+	color: var(--adw-card-fg) !important;
+	box-shadow:
+		0 7px 18px rgba(0, 0, 0, .20),
+		inset 0 0 0 1px color-mix(in srgb, var(--adw-window-fg) 7%, transparent) !important;
+}
+
+/* Right-side modules regain distinct card color/depth. */
+body.DesktopUI div[class*="appdetails_Container_"]
+div[class*="appdetailsoverview_RightColumn_"]
+div[class*="appdetailssection_AppDetailsSectionContainer_"],
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2aor4XVOYzN1PBSREk0UbO div._31ptFGGMZrSQc5BCX1e5lm
+{
+	background: var(--loew-surface-1) !important;
+	color: var(--adw-card-fg) !important;
+	border-radius: var(--adw-card-radius) !important;
+	box-shadow:
+		0 5px 14px rgba(0, 0, 0, .18),
+		inset 0 0 0 1px color-mix(in srgb, var(--adw-window-fg) 6%, transparent) !important;
+	overflow: hidden !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2aor4XVOYzN1PBSREk0UbO
+div._31ptFGGMZrSQc5BCX1e5lm div._38t1mljBjmJfqjpVzMT1CG
+{
+	background: var(--loew-surface-2) !important;
+	border-bottom: 1px solid color-mix(in srgb, var(--adw-window-fg) 7%, transparent) !important;
+}
+
+/* Right-column spacing was too loose. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2aor4XVOYzN1PBSREk0UbO > div,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2aor4XVOYzN1PBSREk0UbO div._2r4TK4BAuU-J4FuF_O7v_5
+{
+	margin-bottom: 14px !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2aor4XVOYzN1PBSREk0UbO div._5uvIN6jXDXzzck59F-nhv
+{
+	padding: 10px !important;
+}
+
+/* Sidebar buttons regain surface color without becoming chunky. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2aor4XVOYzN1PBSREk0UbO button._3Cdin80d-hVsakHUZboheb
+{
+	min-height: 38px !important;
+	height: 38px !important;
+	padding: 5px 10px !important;
+	background: var(--loew-surface-2) !important;
+	color: var(--adw-card-fg) !important;
+	box-shadow:
+		inset 0 0 0 1px color-mix(in srgb, var(--adw-window-fg) 6%, transparent) !important;
+}
+
+/* Activity cards: smaller footprint, less dead space, tighter typography block. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1
+{
+	min-height: 116px !important;
+	gap: 12px !important;
+	padding: 8px !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t::before,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1::before
+{
+	left: 12px !important;
+	width: 36px !important;
+	height: 36px !important;
+	border-radius: 9px !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t::after,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1::after
+{
+	left: 21px !important;
+	width: 18px !important;
+	height: 18px !important;
+	-webkit-mask-size: 18px !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._3dJ4Bq6Msivz5-UIHzSEQu,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2HzKE96Sc4z6KHN68gr4DS
+{
+	padding: 6px 4px 6px 50px !important;
+}
+
+/* Slightly smaller media block, still clearly the visual focus. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
+{
+	flex-basis: clamp(230px, 31%, 320px) !important;
+	width: clamp(230px, 31%, 320px) !important;
+	min-width: 230px !important;
+	max-width: 320px !important;
+	height: 96px !important;
+	min-height: 96px !important;
+	max-height: 96px !important;
+	box-shadow:
+		0 8px 20px rgba(0, 0, 0, .34),
+		0 0 14px rgba(175, 175, 175, .13) !important;
+}
+
+/* Dates become compact separators instead of loose floating labels. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1ujzuoxGhLunHZQqHAqRgg
+{
+	margin: 7px 2px 6px !important;
+	min-height: 16px !important;
+	line-height: 16px !important;
+}
+
+/* Review / prompt strips should read as secondary surfaces, not holes in the page. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2SAb6geDpe6toA1GaP0GjH,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2jPMy2QZr8bWi6yrk5ZzHA
+{
+	background: var(--loew-surface-1) !important;
+	border-radius: var(--adw-card-radius) !important;
+	box-shadow:
+		inset 0 0 0 1px color-mix(in srgb, var(--adw-window-fg) 6%, transparent) !important;
+}
+
+/* Primary-links strip gets a little more tone back while staying compact. */
+body.DesktopUI div._3-V8vjmrwuJM6Ws3tsjFJj
+{
+	background: var(--loew-surface-1) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._25f0fX6qbgdB7O_lMrbhCN
+{
+	padding-top: 4px !important;
+	padding-bottom: 4px !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1b6LYWVijW-9E4YV0keDWZ
+{
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+}
+
+/* Responsive: don't let the tightened desktop proportions choke smaller windows. */
+@media (max-width: 1100px)
+{
+	:root
+	{
+		--loew-details-side-width: 300px;
+		--loew-details-gap: 14px;
+		--loew-details-hero-height: 360px;
+	}
+}
+
+@media (max-width: 820px)
+{
+	:root
+	{
+		--loew-details-hero-height: 320px;
+	}
+
+	body.DesktopUI div[class*="appdetails_Container_"] div[class*="appdetailsoverview_RightColumn_"],
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
+	{
+		width: auto !important;
+		min-width: 0 !important;
+		max-width: none !important;
+		margin-left: 12px !important;
+	}
+}
