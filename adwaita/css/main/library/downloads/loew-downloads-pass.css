@@ -1,541 +1,102 @@
-/* loew downloads polish: borrow the game-details Activity structure without changing
- * Steam's download content, ordering, actions, drag/drop semantics or labels.
- * One centered content column, section headers, separate padded cards, neutral depth.
+/* Downloads owns one stylesheet. Keep Steam's DOM, queue operations and data.
+ * SectionItem > SectionItemContent; queue art/center/buttons are children of
+ * CONTENT, not of the outer card. Active content has graph/identity + stats.
+ * Never change drag-wrapper transforms or invent a percentage/selected state.
  */
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-{
-	--loew-downloads-max-width: 1120px;
-	--loew-downloads-page-inset: 20px;
-	--loew-downloads-card-inset: 16px;
-	--loew-downloads-gap: 14px;
-	--loew-downloads-surface-1: color-mix(in srgb, var(--adw-window-fg) 7%, var(--adw-window-bg));
-	--loew-downloads-surface-2: color-mix(in srgb, var(--adw-window-fg) 11%, var(--adw-window-bg));
-	--loew-downloads-surface-3: color-mix(in srgb, var(--adw-window-fg) 16%, var(--adw-window-bg));
-	--loew-downloads-shadow: 0 7px 18px rgb(0 0 0 / 16%);
-	--loew-downloads-button-shadow: 0 2px 7px rgb(0 0 0 / 18%);
-
-	background: var(--adw-window-bg) !important;
-	padding: 16px var(--loew-downloads-page-inset) 32px !important;
-	box-sizing: border-box !important;
-	scrollbar-gutter: stable !important;
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp {
+  --loew-downloads-max-width:1120px;
+  --adw-accent-bg:#66666b;--adw-accent-fg:#fafafa;--adw-accent:var(--adw-window-fg,#ddd);
+  --adw-accent-bg-rgb:102,102,107;--adw-accent-rgb:190,190,195;
+  --dl-bg:var(--adw-window-bg,#242428);--dl-fg:var(--adw-window-fg,#fafafa);
+  --dl-card:color-mix(in srgb,var(--dl-fg) 7%,var(--dl-bg));
+  --dl-control:color-mix(in srgb,var(--dl-fg) 11%,var(--dl-bg));
+  box-sizing:border-box!important;background:var(--dl-bg)!important;padding:20px!important;
+  overflow-y:auto!important;scrollbar-gutter:stable!important;
 }
-
-/* Main content follows the same centered, readable rhythm as Activity. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1l0LmmqDUXH19SjfELddn7
-{
-	overflow: visible !important;
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(div._373v1eWNyaPKhgnea9FZSt,div._1l0LmmqDUXH19SjfELddn7,div._1ugNiylO2vKXhirsGocAxa,div._38yrSByMjdy8aJe2IDawTg) {
+  box-sizing:border-box!important;width:100%!important;max-width:var(--loew-downloads-max-width)!important;min-width:0!important;
+  margin:0 auto!important;padding:0!important;
 }
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1ugNiylO2vKXhirsGocAxa,
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._373v1eWNyaPKhgnea9FZSt,
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._38yrSByMjdy8aJe2IDawTg
-{
-	width: 100% !important;
-	max-width: var(--loew-downloads-max-width) !important;
-	box-sizing: border-box !important;
-	margin-left: auto !important;
-	margin-right: auto !important;
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._373v1eWNyaPKhgnea9FZSt {position:relative!important;margin-bottom:24px!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1ugNiylO2vKXhirsGocAxa {display:flex!important;flex-direction:column!important;gap:24px!important;overflow:visible!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3Mbhnlk1Go2j8yCdjthzc7 {width:100%!important;max-width:none!important;min-width:0!important;padding:0!important;margin:0!important;background:none!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp .qq2xItSXjpCsNrcxyPJtO {display:flex!important;align-items:center!important;gap:8px!important;flex-wrap:wrap!important;min-height:44px!important;padding:4px 2px 12px!important;box-sizing:border-box!important;color:var(--dl-fg)!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp ._1CTr1yKRkOXnJ4gSS1-1A3 {flex:1!important;background:none!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(.TK9wvF55dyA6RcOclozC8,.qq2xItSXjpCsNrcxyPJtO span) {font-family:var(--adw-text-font,system-ui)!important;font-size:15px!important;text-transform:none!important;letter-spacing:normal!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(._117rQTHH1RIewY7sSlvg3Z,._1GdR5LbENV7LOGROJBxohI) {padding:8px 10px!important;border:0!important;border-radius:8px!important;box-shadow:none!important;color:var(--dl-fg)!important;background:transparent!important;font-size:14px!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div.OINnOU8K5HzPe2nzczpZi {width:100%!important;margin:0!important;padding:0!important;background:none!important;border:0!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._21P7c4MWmsU2QSZeL-uyZo {margin:0 0 14px!important;border-radius:14px!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1VNuYHM6BPBOJspC6zPf5r {
+  display:block!important;position:relative!important;isolation:isolate;width:100%!important;min-width:0!important;max-width:none!important;
+  height:auto!important;min-height:116px!important;padding:20px!important;box-sizing:border-box!important;
+  background:var(--dl-card)!important;color:var(--dl-fg)!important;border:0!important;border-radius:14px!important;box-shadow:0 6px 18px #0003!important;
 }
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1ugNiylO2vKXhirsGocAxa
-{
-	padding: 0 !important;
-	gap: 20px !important;
-	overflow: visible !important;
+/* Blur/dim only the separate background, not the foreground logo or text. */
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1VNuYHM6BPBOJspC6zPf5r::before {
+  content:"";position:absolute;inset:0;z-index:-2;border-radius:inherit;background-image:var(--loew-download-hero,none);
+  background-size:cover;background-position:center;filter:blur(8px) brightness(.40);clip-path:inset(0 round 14px);pointer-events:none;
 }
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._373v1eWNyaPKhgnea9FZSt
-{
-	position: relative !important;
-	margin-bottom: 20px !important;
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1VNuYHM6BPBOJspC6zPf5r[data-loew-hero="1"] {--dl-fg:#fafafa;--dl-control:#ffffff16;background:#202226!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1VNuYHM6BPBOJspC6zPf5r > div._3ebCJiEl-ybizhZ4avcFw5 {
+  display:grid!important;grid-template-columns:100px minmax(0,1fr) auto!important;grid-template-areas:"art copy actions"!important;
+  align-items:center!important;gap:20px!important;width:100%!important;min-width:0!important;padding:0!important;position:relative!important;
 }
-
-/* Downloads sections use Activity-style plain headers above discrete cards. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3Mbhnlk1Go2j8yCdjthzc7
-{
-	width: 100% !important;
-	max-width: none !important;
-	display: flex !important;
-	flex-direction: column !important;
-	gap: var(--loew-downloads-gap) !important;
-	padding: 0 !important;
-	margin: 0 !important;
-	background: transparent !important;
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3ebCJiEl-ybizhZ4avcFw5 > div._2pjdgFqp04LlhgtFS0rQn_ {
+  grid-area:art!important;position:relative!important;inset:auto!important;width:100px!important;height:72px!important;
+  opacity:1!important;filter:none!important;mask:none!important;-webkit-mask:none!important;overflow:hidden!important;border-radius:10px!important;
+  margin:0!important;pointer-events:auto!important;
 }
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3Mbhnlk1Go2j8yCdjthzc7 > .qq2xItSXjpCsNrcxyPJtO
-{
-	display: flex !important;
-	align-items: center !important;
-	min-height: 40px !important;
-	padding: 10px 4px 6px !important;
-	margin: 0 !important;
-	box-sizing: border-box !important;
-	background: transparent !important;
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._2pjdgFqp04LlhgtFS0rQn_ :is(div.WYgDg9NyCcMIVuMyZ_NBC,img) {width:100%!important;height:100%!important;min-width:0!important;opacity:1!important;filter:none!important;transform:none!important;mask:none!important;object-fit:contain!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._2pjdgFqp04LlhgtFS0rQn_ :is(.MyNb5dG3FsBnKdp8j_ntk,._2BOmkMg4r689AAjdLObYs2) {display:none!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3ebCJiEl-ybizhZ4avcFw5 > div._2xy0gY9dA8OoNNR7_Z2y2x {
+  grid-area:copy!important;display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:12px 24px!important;
+  min-width:0!important;width:100%!important;margin:0!important;padding:0!important;
 }
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3Mbhnlk1Go2j8yCdjthzc7 > .qq2xItSXjpCsNrcxyPJtO,
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3Mbhnlk1Go2j8yCdjthzc7 > .qq2xItSXjpCsNrcxyPJtO span
-{
-	color: var(--adw-window-fg) !important;
-	font-family: var(--adw-text-font) !important;
-	text-transform: none !important;
-	letter-spacing: normal !important;
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._2xy0gY9dA8OoNNR7_Z2y2x > div.kGTS55N3oEbxE7HAgE9ZX {flex:1 1 240px!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:6px!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(div._35eOQ6EeVHNV5HGBrJ1-Vu,div._1Er4SotWhGIid50maW3Lfv) {color:var(--dl-fg)!important;font-size:16px!important;line-height:1.4!important;font-weight:650!important;white-space:normal!important;overflow-wrap:anywhere!important;margin:0!important;text-transform:none!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(div.Bku7JSkuQ7NyWi6M4w1sl,div._1SyggnJY6qbRSmbZpkK3-H) {color:color-mix(in srgb,var(--dl-fg) 85%,transparent)!important;font-size:13px!important;line-height:1.5!important;min-width:0!important;overflow-wrap:anywhere;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(div._31Ig9HzlsHvYWo5VyjppMY,div._1cMXIpc5BRVY11dIrWKMNW) {display:flex!important;position:relative!important;inset:auto!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important;padding:0!important;min-width:0!important;pointer-events:auto!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3ebCJiEl-ybizhZ4avcFw5 > div._31Ig9HzlsHvYWo5VyjppMY {grid-area:actions!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(button.DialogButton,button._3Tfp8-wTAttW3WVa_X9JVC,div._3ydigb6zZAjJ0JCDgHwSYA) {display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:38px!important;min-height:38px!important;width:auto!important;height:auto!important;padding:10px!important;border:0!important;border-radius:9px!important;background:var(--dl-control)!important;color:var(--dl-fg)!important;box-shadow:0 3px 8px #0003!important;text-indent:0!important;font-size:14px!important;line-height:1.3!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(button.DialogButton,div._3ydigb6zZAjJ0JCDgHwSYA) svg {display:block!important;flex:none!important;width:18px!important;height:18px!important;margin:0!important;color:inherit!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1FnJ6dPuknQFQ2RTpKTI16 {display:flex!important;min-width:0!important;width:auto!important;height:38px!important;background:var(--adw-accent-bg)!important;color:var(--adw-accent-fg)!important;border:0!important;border-radius:9px!important;box-shadow:0 3px 8px #0003!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1FnJ6dPuknQFQ2RTpKTI16 ._33cnXIqTRgRr49_FNXIHj6 {display:block!important;text-indent:0!important;color:inherit!important;font-size:14px!important;line-height:1.3!important;}
+/* Active: two real children. Identity and graph share left; status uses right. */
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3ebCJiEl-ybizhZ4avcFw5:has(> div._2sCvZTD6ZTZz3p9_ekH_gI) {display:block!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._2sCvZTD6ZTZz3p9_ekH_gI {display:grid!important;grid-template-columns:minmax(0,1.1fr) minmax(280px,1fr)!important;gap:24px!important;width:100%!important;min-width:0!important;padding:0!important;height:auto!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._2sCvZTD6ZTZz3p9_ekH_gI > div._3KDkLoCR8OM8xfdQysKn9t {display:flex!important;flex-direction:column!important;position:relative!important;inset:auto!important;gap:12px!important;width:100%!important;height:auto!important;min-width:0!important;float:none!important;padding:0!important;margin:0!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._2sCvZTD6ZTZz3p9_ekH_gI > div._20JlDJD9-uoCjNLGp_8mY6 {display:flex!important;flex-direction:column!important;justify-content:center!important;gap:12px!important;min-width:0!important;width:100%!important;padding:0!important;margin:0!important;height:auto!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3mZ2rKd2RECK4q4ufmsDYX {position:relative!important;inset:auto!important;width:100%!important;height:80px!important;min-height:80px!important;opacity:1!important;filter:none!important;mask:none!important;-webkit-mask:none!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(div._3WauYi7bNDSGIogMLPVYES,div.edQzwM57P-T5K3eDGkyvZ,img._2VT4s72bqcVb83Su1b1VEv,div.RfMM3QjbVZCURuo5YTHWD) {display:none!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp ._1H3SuC0g9zjHUSMZY2T32U {display:block!important;position:relative!important;inset:auto!important;width:min(220px,100%)!important;height:80px!important;max-width:100%!important;object-fit:contain!important;object-position:left center!important;opacity:1!important;filter:none!important;transform:none!important;margin:0!important;mask:none!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div.jKUGuDdbLCrMyvZbnMmZ {position:relative!important;inset:auto!important;width:100%!important;height:100%!important;opacity:1!important;display:flex!important;align-items:center!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div.Itce_jO4YiiTduktPP2oa {display:flex!important;align-items:center!important;gap:12px!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp .XIcHE78dgvrKOpB7W_NZV {width:56px!important;height:56px!important;object-fit:contain!important;}
+/* Graph and real progress get allocated rows, never overlap the text. */
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3GBFL10vEfhI28U95WaqMj {position:relative!important;inset:auto!important;display:block!important;width:100%!important;height:92px!important;min-height:92px!important;opacity:.65!important;padding:0!important;margin:0!important;z-index:auto!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(div._1BxZDLT8KveuJzn-1q4NTP,div._2-AUyaXfJHWP85tZVENytR) {position:relative!important;inset:auto!important;width:100%!important;height:100%!important;mask:none!important;-webkit-mask:none!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._2-AUyaXfJHWP85tZVENytR svg {width:100%!important;height:100%!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(.OS07NfYlp6v-Eh5oQ7dwn,._3mul1iIN_gcVS-tH2OUC1) {fill:color-mix(in srgb,var(--dl-fg) 40%,transparent)!important;color:var(--dl-fg)!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp ._3H2JWLH8rucdSC1XVZ7Xdk {fill:none!important;stroke:var(--dl-fg)!important;stroke-width:1.2!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._vrwj4IQ-vqMravrbJb64 {display:flex!important;flex-wrap:wrap!important;gap:8px!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._26UBk-6weCeV-VClfXNWJZ {display:flex!important;align-items:center!important;gap:6px!important;padding:8px 10px!important;background:var(--dl-control)!important;border:0!important;border-radius:9px!important;font-size:12px!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(div.Ayu--dDVVaKmP2gNYPAQ0,div._5TdA4FjU9OYsTIaHzloD) {display:flex!important;gap:4px!important;align-items:baseline!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(div._1iulCOMUxV6sBbqoKo_yXw,div.eXF8xL2LUtzeWMbK-FSRz) {color:var(--dl-fg)!important;font-size:12px!important;line-height:1.4!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div.MSCfUF8cD2uIicYPlotLj {display:flex!important;flex-direction:column!important;gap:10px!important;width:100%!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1vMU1vG5ZtLihr3mfXUymR {position:relative!important;inset:auto!important;display:block!important;width:100%!important;min-width:80px!important;height:6px!important;margin:6px 0 0!important;border:0!important;border-radius:8px!important;background:#ffffff20!important;overflow:hidden!important;color:var(--adw-accent)!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1vMU1vG5ZtLihr3mfXUymR ._1FnTqlsi2_-TJf1d5apoS6 {height:100%!important;background:currentColor!important;border:0!important;border-radius:inherit!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1ia3Wetvb6Jx1P6qi8vFJh {color:var(--adw-error,#ff938b)!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._14DhZoqwtCm4l0yDeN6QZe {position:absolute!important;left:-16px!important;top:4px!important;width:14px!important;color:var(--dl-fg)!important;opacity:.6!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3B3J2qtE6ozU_VXMMN2L51 {display:none!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1zv2D9H37p5yuOJNsCemS3 {display:block!important;padding:24px!important;min-height:80px!important;height:auto!important;box-sizing:border-box!important;background:var(--dl-card)!important;border:0!important;border-radius:14px!important;color:var(--dl-fg)!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div.OINnOU8K5HzPe2nzczpZi._2m6Q3ca-wXeLIVShFCO51T {background:#ffffff0d!important;outline:0!important;border-radius:14px!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(div.lzk4zNVWG2zPV5Mk_o5GL,div._3skWnzTCiOu9dX2bUXjVeK) {position:relative!important;inset:auto!important;display:flex!important;justify-content:flex-end!important;margin:0 0 12px!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div.E77_ojZbdMlTc1bWOUTC8 {position:relative!important;inset:auto!important;max-width:1120px!important;height:auto!important;padding:14px!important;margin:0 auto 16px!important;box-sizing:border-box!important;border-radius:10px!important;background:var(--dl-control)!important;color:var(--dl-fg)!important;}
+body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp :is(button,[role="button"]):focus-visible {outline:0!important;background:color-mix(in srgb,var(--dl-fg) 23%,var(--dl-bg))!important;text-decoration:underline!important;}
+@media(max-width:860px){
+  body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._2sCvZTD6ZTZz3p9_ekH_gI {grid-template-columns:minmax(0,1fr)!important;}
+  body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1VNuYHM6BPBOJspC6zPf5r > div._3ebCJiEl-ybizhZ4avcFw5 {grid-template-columns:80px minmax(0,1fr)!important;grid-template-areas:"art copy" "actions actions"!important;gap:16px!important;}
+  body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3ebCJiEl-ybizhZ4avcFw5 > div._2pjdgFqp04LlhgtFS0rQn_ {width:80px!important;}
+  body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3ebCJiEl-ybizhZ4avcFw5 > div._31Ig9HzlsHvYWo5VyjppMY {justify-self:end!important;}
 }
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3Mbhnlk1Go2j8yCdjthzc7 ._1CTr1yKRkOXnJ4gSS1-1A3
-{
-	display: none !important;
-}
-
-/* Lists themselves are transparent. Every real transfer is its own card. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div.OINnOU8K5HzPe2nzczpZi
-{
-	width: 100% !important;
-	padding: 0 !important;
-	margin: 0 !important;
-	border: 0 !important;
-	border-radius: 0 !important;
-	background: transparent !important;
-	overflow: visible !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div.OINnOU8K5HzPe2nzczpZi > div._21P7c4MWmsU2QSZeL-uyZo
-{
-	width: 100% !important;
-	min-width: 0 !important;
-	box-sizing: border-box !important;
-	margin: 0 0 12px !important;
-	padding: 0 !important;
-	border-radius: 12px !important;
-	overflow: visible !important;
-}
-
-/* Connected-list corner rules from upstream are neutralized. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div.OINnOU8K5HzPe2nzczpZi > div._21P7c4MWmsU2QSZeL-uyZo
-> div._1VNuYHM6BPBOJspC6zPf5r
-{
-	position: relative !important;
-	display: grid !important;
-	grid-template-columns: 64px minmax(0, 1fr) auto !important;
-	grid-template-areas: "art content actions" !important;
-	align-items: center !important;
-	gap: 14px !important;
-	width: 100% !important;
-	min-width: 0 !important;
-	max-width: none !important;
-	min-height: 92px !important;
-	height: auto !important;
-	box-sizing: border-box !important;
-	margin: 0 !important;
-	padding: 14px 16px 16px !important;
-	color: var(--adw-window-fg) !important;
-	background: var(--loew-downloads-surface-1) !important;
-	background-image: none !important;
-	border: 0 !important;
-	border-radius: 12px !important;
-	box-shadow: var(--loew-downloads-shadow) !important;
-	overflow: hidden !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r:hover
-{
-	background: var(--loew-downloads-surface-2) !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r ._3B3J2qtE6ozU_VXMMN2L51
-{
-	display: none !important;
-}
-
-/* Artwork becomes the same kind of compact leading media used on Activity cards. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r div._2pjdgFqp04LlhgtFS0rQn_
-{
-	grid-area: art !important;
-	position: relative !important;
-	inset: auto !important;
-	width: 64px !important;
-	min-width: 64px !important;
-	max-width: 64px !important;
-	height: 64px !important;
-	min-height: 64px !important;
-	max-height: 64px !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	border: 0 !important;
-	border-radius: 11px !important;
-	overflow: hidden !important;
-	box-shadow: 0 6px 16px rgb(0 0 0 / 28%) !important;
-}
-
-/* Main text/status area. Keep all Steam content, only normalize its geometry. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r div._3ebCJiEl-ybizhZ4avcFw5,
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r div._2xy0gY9dA8OoNNR7_Z2y2x,
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r div.kGTS55N3oEbxE7HAgE9ZX
-{
-	grid-area: content !important;
-	position: relative !important;
-	inset: auto !important;
-	width: 100% !important;
-	min-width: 0 !important;
-	max-width: none !important;
-	height: auto !important;
-	min-height: 0 !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	box-sizing: border-box !important;
-	align-self: center !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r div._35eOQ6EeVHNV5HGBrJ1-Vu
-{
-	min-width: 0 !important;
-	max-width: 100% !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	color: var(--adw-window-fg) !important;
-	font-family: var(--adw-text-font) !important;
-	font-weight: 700 !important;
-	overflow: hidden !important;
-	text-overflow: ellipsis !important;
-	white-space: nowrap !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r
-:is(div.Bku7JSkuQ7NyWi6M4w1sl, div._3nx-k9xXUVgejG1BIAc84r, div._1SyggnJY6qbRSmbZpkK3-H)
-{
-	min-width: 0 !important;
-	width: 100% !important;
-	max-width: 100% !important;
-	margin: 4px 0 0 !important;
-	padding: 0 !important;
-	color: color-mix(in srgb, var(--adw-window-fg) 62%, transparent) !important;
-	overflow-wrap: anywhere !important;
-}
-
-/* Right-side controls form one compact action cluster. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r
-:is(div._24D3LpyHe8-HbiQftVVsna, div._31Ig9HzlsHvYWo5VyjppMY, div._1cMXIpc5BRVY11dIrWKMNW)
-{
-	grid-area: actions !important;
-	position: relative !important;
-	inset: auto !important;
-	display: flex !important;
-	align-items: center !important;
-	justify-content: flex-end !important;
-	flex-wrap: nowrap !important;
-	gap: 6px !important;
-	width: auto !important;
-	min-width: 0 !important;
-	height: auto !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	pointer-events: auto !important;
-}
-
-/* All row buttons share the same soft, borderless action treatment. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r
-:is(button.DialogButton, div._3ydigb6zZAjJ0JCDgHwSYA)
-{
-	width: 36px !important;
-	min-width: 36px !important;
-	max-width: 36px !important;
-	height: 36px !important;
-	min-height: 36px !important;
-	max-height: 36px !important;
-	box-sizing: border-box !important;
-	margin: 0 !important;
-	padding: 10px !important;
-	border: 0 !important;
-	border-radius: 9px !important;
-	background: var(--loew-downloads-surface-2) !important;
-	color: var(--adw-window-fg) !important;
-	box-shadow: var(--loew-downloads-button-shadow) !important;
-	opacity: 1 !important;
-	transform: none !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r
-:is(button.DialogButton, div._3ydigb6zZAjJ0JCDgHwSYA):hover
-{
-	background: var(--loew-downloads-surface-3) !important;
-}
-
-/* Progress is now an inset accent rail rather than a card edge. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r div._1vMU1vG5ZtLihr3mfXUymR
-{
-	position: absolute !important;
-	left: 16px !important;
-	right: 16px !important;
-	bottom: 7px !important;
-	width: auto !important;
-	height: 4px !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	border-radius: 999px !important;
-	overflow: hidden !important;
-	background: var(--loew-downloads-surface-3) !important;
-	color: var(--adw-accent) !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._1VNuYHM6BPBOJspC6zPf5r div._1vMU1vG5ZtLihr3mfXUymR > div
-{
-	height: 100% !important;
-	border-radius: inherit !important;
-	background: currentColor !important;
-}
-
-/* Active download at the top becomes a larger lead card, similar to a featured Activity item. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._373v1eWNyaPKhgnea9FZSt div._2sCvZTD6ZTZz3p9_ekH_gI
-{
-	position: relative !important;
-	display: grid !important;
-	grid-template-columns: minmax(0, 1fr) auto !important;
-	grid-template-areas: "lead stats" !important;
-	align-items: center !important;
-	gap: 18px !important;
-	width: 100% !important;
-	min-width: 0 !important;
-	height: auto !important;
-	min-height: 126px !important;
-	margin: 0 !important;
-	padding: var(--loew-downloads-card-inset) !important;
-	box-sizing: border-box !important;
-	border: 0 !important;
-	border-radius: 14px !important;
-	background: var(--loew-downloads-surface-1) !important;
-	box-shadow: 0 9px 24px rgb(0 0 0 / 18%) !important;
-	overflow: hidden !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._373v1eWNyaPKhgnea9FZSt div._2sCvZTD6ZTZz3p9_ekH_gI > div.kGTS55N3oEbxE7HAgE9ZX
-{
-	grid-area: lead !important;
-	position: relative !important;
-	width: 100% !important;
-	min-width: 0 !important;
-	height: auto !important;
-	min-height: 0 !important;
-	margin: 0 !important;
-	padding: 0 !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._373v1eWNyaPKhgnea9FZSt div._2sCvZTD6ZTZz3p9_ekH_gI > div._20JlDJD9-uoCjNLGp_8mY6
-{
-	grid-area: stats !important;
-	position: relative !important;
-	width: auto !important;
-	min-width: 0 !important;
-	height: auto !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	align-self: center !important;
-}
-
-/* The active game identity is a proper leading row rather than loose text. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._373v1eWNyaPKhgnea9FZSt div.Itce_jO4YiiTduktPP2oa
-{
-	display: flex !important;
-	align-items: center !important;
-	gap: 14px !important;
-	min-width: 0 !important;
-	margin: 0 0 8px !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._373v1eWNyaPKhgnea9FZSt div.XIcHE78dgvrKOpB7W_NZV
-{
-	width: 72px !important;
-	min-width: 72px !important;
-	max-width: 72px !important;
-	height: 72px !important;
-	min-height: 72px !important;
-	max-height: 72px !important;
-	border-radius: 12px !important;
-	overflow: hidden !important;
-	box-shadow: 0 7px 18px rgb(0 0 0 / 30%) !important;
-}
-
-/* Network/disk stats borrow the small padded badge language from the Play rail. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._373v1eWNyaPKhgnea9FZSt div._vrwj4IQ-vqMravrbJb64
-{
-	display: flex !important;
-	flex-wrap: wrap !important;
-	align-items: center !important;
-	justify-content: flex-end !important;
-	gap: 8px !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._373v1eWNyaPKhgnea9FZSt div._26UBk-6weCeV-VClfXNWJZ
-{
-	display: flex !important;
-	align-items: baseline !important;
-	gap: 4px !important;
-	min-width: 0 !important;
-	margin: 0 !important;
-	padding: 7px 10px !important;
-	border-radius: 9px !important;
-	background: var(--loew-downloads-surface-2) !important;
-	box-shadow: var(--loew-downloads-button-shadow) !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div._373v1eWNyaPKhgnea9FZSt div._26UBk-6weCeV-VClfXNWJZ:not(:last-child)::after
-{
-	content: none !important;
-}
-
-/* Header actions stay visible but stop floating over the content. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div.lzk4zNVWG2zPV5Mk_o5GL,
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._3skWnzTCiOu9dX2bUXjVeK
-{
-	position: relative !important;
-	inset: auto !important;
-	float: none !important;
-	margin: 0 0 10px auto !important;
-	height: auto !important;
-	z-index: 2 !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-button._3Tfp8-wTAttW3WVa_X9JVC,
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-button.DialogDropDown
-{
-	border: 0 !important;
-	background: var(--loew-downloads-surface-2) !important;
-	box-shadow: var(--loew-downloads-button-shadow) !important;
-}
-
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-button._3Tfp8-wTAttW3WVa_X9JVC:hover,
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-button.DialogDropDown:hover
-{
-	background: var(--loew-downloads-surface-3) !important;
-}
-
-/* Empty queue keeps the same card language instead of a disabled gray slab. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1zv2D9H37p5yuOJNsCemS3
-{
-	min-height: 92px !important;
-	height: auto !important;
-	padding: 20px !important;
-	margin: 0 !important;
-	border: 0 !important;
-	border-radius: 12px !important;
-	background: var(--loew-downloads-surface-1) !important;
-	box-shadow: var(--loew-downloads-shadow) !important;
-	box-sizing: border-box !important;
-}
-
-/* Remove the connected-list outline/stroke language everywhere on this page. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-:is(div._1VNuYHM6BPBOJspC6zPf5r, div._1zv2D9H37p5yuOJNsCemS3, div._2sCvZTD6ZTZz3p9_ekH_gI)
-{
-	outline: none !important;
-	border-image: none !important;
-}
-
-/* Preserve drag/drop feedback, but make it an accent-filled surface instead of a dashed stroke. */
-body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-div.OINnOU8K5HzPe2nzczpZi._2m6Q3ca-wXeLIVShFCO51T
-{
-	outline: none !important;
-	background: color-mix(in srgb, var(--adw-accent-bg) 12%, transparent) !important;
-	border-radius: 14px !important;
-}
-
-/* Narrow windows keep the content, actions and progress intact. */
-@media (max-width: 860px)
-{
-	body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-	{
-		--loew-downloads-page-inset: 14px;
-	}
-
-	body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-	div._1VNuYHM6BPBOJspC6zPf5r
-	{
-		grid-template-columns: 56px minmax(0, 1fr) !important;
-		grid-template-areas:
-			"art content"
-			"actions actions" !important;
-		gap: 10px 12px !important;
-	}
-
-	body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-	div._1VNuYHM6BPBOJspC6zPf5r div._2pjdgFqp04LlhgtFS0rQn_
-	{
-		width: 56px !important;
-		min-width: 56px !important;
-		max-width: 56px !important;
-		height: 56px !important;
-		min-height: 56px !important;
-		max-height: 56px !important;
-	}
-
-	body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-	div._1VNuYHM6BPBOJspC6zPf5r
-	:is(div._24D3LpyHe8-HbiQftVVsna, div._31Ig9HzlsHvYWo5VyjppMY, div._1cMXIpc5BRVY11dIrWKMNW)
-	{
-		justify-self: end !important;
-	}
-
-	body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-	div._373v1eWNyaPKhgnea9FZSt div._2sCvZTD6ZTZz3p9_ekH_gI
-	{
-		grid-template-columns: minmax(0, 1fr) !important;
-		grid-template-areas:
-			"lead"
-			"stats" !important;
-	}
-
-	body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-	div._373v1eWNyaPKhgnea9FZSt div._vrwj4IQ-vqMravrbJb64
-	{
-		justify-content: flex-start !important;
-	}
-}
-
-@media (max-width: 560px)
-{
-	body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-	{
-		padding-left: 10px !important;
-		padding-right: 10px !important;
-	}
-
-	body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-	div._1VNuYHM6BPBOJspC6zPf5r
-	{
-		padding: 12px 12px 16px !important;
-	}
-
-	body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp
-	div._1VNuYHM6BPBOJspC6zPf5r div._35eOQ6EeVHNV5HGBrJ1-Vu
-	{
-		white-space: normal !important;
-	}
-}
+@media(max-width:480px){body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp {padding:12px!important;}body.DesktopUI div._1bq4x9pa4-9RLY-dXWUZTp div._1VNuYHM6BPBOJspC6zPf5r {padding:16px!important;}}
