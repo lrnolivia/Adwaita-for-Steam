@@ -246,3 +246,307 @@ div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
 		margin: 16px !important;
 	}
 }
+
+
+/* ==========================================================================
+ * pass 4: restore pre-v4 visual order + rebuild activity media cards
+ * ========================================================================== */
+
+:root
+{
+	/* The v4 header was 240px tall. We only need a compact control bar. */
+	--adw-library-details-header-height: 72px;
+}
+
+/*
+ * YES: this is the correction for the v4 composition.
+ * Remove the artificial header gap above the hero and let the inline Play bar
+ * sit in normal flow after the hero again.
+ */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ
+{
+	margin-top: 0 !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1_cYNJSvS6IXs9vLTEYjy5 > div._1U7LKpx70kEsz3jJwAFOi-
+{
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	width: 100% !important;
+	height: var(--adw-library-details-header-height) !important;
+	min-height: var(--adw-library-details-header-height) !important;
+	background: var(--adw-window-bg) !important;
+	border-top: 1px solid color-mix(in srgb, var(--adw-window-fg) var(--adw-border-opacity), transparent) !important;
+	border-bottom: 1px solid color-mix(in srgb, var(--adw-window-fg) var(--adw-border-opacity), transparent) !important;
+	overflow: visible !important;
+}
+
+/* Hide v4's separate icon/title composition. The hero is the identity surface. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1_cYNJSvS6IXs9vLTEYjy5 > div._25oBZpa3dUcMw8QAsa2u67,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._2MBVRXpsw6DUjs7937DWZW
+{
+	display: none !important;
+}
+
+/* Make the Play/options surface a real horizontal bar again. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- > div._3fLo166MlaNqP8r8tTyRz
+{
+	width: min(100%, var(--loew-details-max-width)) !important;
+	max-width: var(--loew-details-max-width) !important;
+	height: 100% !important;
+	box-sizing: border-box !important;
+	margin: 0 auto !important;
+	padding: 12px 24px !important;
+	background: none !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._3Y87YQY56ZCOqhgcZFaDc5
+{
+	position: relative !important;
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	gap: 10px !important;
+	width: 100% !important;
+	height: 46px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	overflow: visible !important;
+}
+
+/* Play */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._1FnJ6dPuknQFQ2RTpKTI16
+{
+	position: relative !important;
+	top: auto !important;
+	right: auto !important;
+	bottom: auto !important;
+	left: auto !important;
+	min-width: 140px !important;
+	height: 44px !important;
+	margin: 0 !important;
+	flex: 0 0 auto !important;
+	order: 1 !important;
+}
+
+/* Manage and links */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._3oddBTkj_FjknCgBnPqcmQ,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._1bIMOmWaxKrMdVMWU21ku
+{
+	position: relative !important;
+	top: auto !important;
+	right: auto !important;
+	bottom: auto !important;
+	left: auto !important;
+	margin: 0 !important;
+	flex: 0 0 auto !important;
+	order: 2 !important;
+}
+
+/* Undo v4's zero-sized wrapper around the stats. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._9EHg918wH6CQCQlD5PWOO
+{
+	position: relative !important;
+	width: auto !important;
+	height: auto !important;
+	min-width: 0 !important;
+	overflow: visible !important;
+	flex: 1 1 auto !important;
+	order: 3 !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._1YbtIWcfkQJOysLXQbwzRf,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div.zjtAIAWI6HE0oCtJzw6Qt
+{
+	position: relative !important;
+	display: flex !important;
+	align-items: center !important;
+	min-width: 0 !important;
+}
+
+/* Stats row */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._1mDAVT4sTzFRwJtlKCw2Ws
+{
+	position: relative !important;
+	left: auto !important;
+	right: auto !important;
+	top: auto !important;
+	bottom: auto !important;
+	width: auto !important;
+	min-width: 0 !important;
+	margin: 0 !important;
+	padding: 0 8px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: flex-start !important;
+	gap: 14px !important;
+	flex: 1 1 auto !important;
+	mask-image: none !important;
+	-webkit-mask-image: none !important;
+	overflow-x: auto !important;
+	overflow-y: hidden !important;
+}
+
+/* SteamOS compatibility at the far end */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div.IIJeieZ-ZPRfIULY7uSDG
+{
+	position: relative !important;
+	position-anchor: auto !important;
+	right: auto !important;
+	left: auto !important;
+	top: auto !important;
+	bottom: auto !important;
+	width: auto !important;
+	margin: 0 0 0 auto !important;
+	flex: 0 0 auto !important;
+	order: 4 !important;
+}
+
+/*
+ * ACTIVITY MEDIA CARDS
+ * Real art, not a faded background treatment.
+ */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1HZy7BvOZuPT8feUwadL4W,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.LibriMVXcLl1HB60ZUp78
+{
+	background: var(--adw-card-bg) !important;
+	background-image: none !important;
+	overflow: visible !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1
+{
+	gap: 16px !important;
+	padding: 12px !important;
+	align-items: center !important;
+	background: none !important;
+	background-image: none !important;
+}
+
+/* Kill the synthetic update icon when real art is present. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t::after,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1::after
+{
+	content: none !important;
+}
+
+/* Real event/news art as a physical card element. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
+{
+	position: relative !important;
+	width: clamp(240px, 34%, 360px) !important;
+	min-width: 240px !important;
+	max-width: 360px !important;
+	height: 116px !important;
+	min-height: 116px !important;
+	max-height: 116px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	align-self: center !important;
+	overflow: visible !important;
+	mask-image: none !important;
+	-webkit-mask-image: none !important;
+	border-radius: calc(var(--adw-card-radius) - 2px) !important;
+	background: transparent !important;
+	box-shadow:
+		0 12px 28px rgba(0, 0, 0, .34),
+		0 0 24px color-mix(in srgb, var(--adw-accent) 14%, transparent) !important;
+	transition:
+		transform var(--adw-transition-duration),
+		box-shadow var(--adw-transition-duration) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL > img,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW > img
+{
+	position: relative !important;
+	inset: auto !important;
+	display: block !important;
+	width: 100% !important;
+	min-width: 100% !important;
+	max-width: 100% !important;
+	height: 100% !important;
+	min-height: 100% !important;
+	max-height: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	object-fit: cover !important;
+	object-position: center !important;
+	transform: none !important;
+	filter: none !important;
+	opacity: 1 !important;
+	border-radius: inherit !important;
+	box-shadow: none !important;
+}
+
+/* Clean edge, no gradient overlay. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL::after,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW::after
+{
+	content: "" !important;
+	position: absolute !important;
+	inset: 0 !important;
+	width: auto !important;
+	height: auto !important;
+	border-radius: inherit !important;
+	box-shadow:
+		inset 0 0 0 1px color-mix(in srgb, var(--adw-card-fg) 12%, transparent) !important;
+	pointer-events: none !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1HZy7BvOZuPT8feUwadL4W:hover
+div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.LibriMVXcLl1HB60ZUp78:hover
+div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
+{
+	transform: translateY(-2px) !important;
+	box-shadow:
+		0 16px 34px rgba(0, 0, 0, .40),
+		0 0 30px color-mix(in srgb, var(--adw-accent) 20%, transparent) !important;
+}
+
+/* Dates must sit between cards, not on top of them. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel
+{
+	margin-bottom: 22px !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1ujzuoxGhLunHZQqHAqRgg
+{
+	position: static !important;
+	float: none !important;
+	transform: none !important;
+	margin: 10px 4px 8px !important;
+	padding: 0 !important;
+	line-height: 18px !important;
+}
