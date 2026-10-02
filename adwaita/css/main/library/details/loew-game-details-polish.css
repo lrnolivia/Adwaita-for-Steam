@@ -1,0 +1,432 @@
+/* loew game-details polish v2, 2026-10-02.
+ * Final pass over the approved structure: no page redesign, no strokes.
+ * Adds Activity stability, top-aligned source icons, richer rail hierarchy,
+ * hero-accent depth, neutral-before-sample presentation and stateful Play pulse.
+ */
+
+body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE
+{
+  --loew-neutral-accent-bg: rgb(92 95 104);
+  --loew-neutral-accent-fg: #fff;
+  --loew-rail-shadow: 0 12px 28px -20px rgb(0 0 0 / 88%);
+  --loew-nav-shadow: 0 7px 18px rgb(0 0 0 / 18%);
+  --loew-control-shadow: 0 3px 9px rgb(0 0 0 / 22%);
+}
+
+/* Never flash the user's system accent while artwork sampling is pending. */
+body.DesktopUI.adw-injected
+div._2Nq6ov7A1hGcHXVOXNt_OE:not([data-loew-palette="sampled"])
+{
+  --adw-accent-bg: var(--loew-neutral-accent-bg) !important;
+  --adw-accent-fg: var(--loew-neutral-accent-fg) !important;
+  --adw-accent: rgb(198 201 210) !important;
+  --adw-accent-bg-rgb: 92,95,104 !important;
+  --adw-accent-fg-rgb: 255,255,255 !important;
+  --adw-accent-rgb: 198,201,210 !important;
+}
+
+/* Rail remains edge-to-edge, but gets depth and hierarchy from surfaces/shadow. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._27RcNu8aXKBpYkHcNNrt-X > div._1U7LKpx70kEsz3jJwAFOi-
+{
+  background: var(--loew-surface-1) !important;
+  box-shadow: var(--loew-rail-shadow) !important;
+  isolation: isolate !important;
+  z-index: 3 !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- > div._3fLo166MlaNqP8r8tTyRz
+{
+  background: var(--loew-surface-1) !important;
+  box-shadow: none !important;
+}
+
+/* Stat badges: compact surfaces, not giant pills. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1YbtIWcfkQJOysLXQbwzRf
+{
+  display: flex !important;
+  align-items: stretch !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1YbtIWcfkQJOysLXQbwzRf >
+:is(
+  div._2cRYms-zZc4misk9tj3bt8,
+  div._1kiZKVbDe-9Ikootk57kpA,
+  div.UAhWiMg9Q2VPsQQBj_ikT,
+  div._1aKegVl9_lSdNAyWYZQlr9,
+  div._3pS8kMrtScuY1Qf-W8tmRV,
+  div.EBONu_uCm3zQBGW8ummvk
+)
+{
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  min-height: 42px !important;
+  padding: 7px 10px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: var(--loew-surface-2) !important;
+  box-shadow: 0 2px 7px rgb(0 0 0 / 18%) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1YbtIWcfkQJOysLXQbwzRf
+:is(._34lrt5-Fc3usZU6trA1P0-, ._2TYVGoD27ZMfjRirKQNLfk)
+{
+  line-height: 1.15 !important;
+}
+
+/* Right-side Play rail controls get just enough lift to read as controls. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1EAxK56o5a9Nieu5HYkJ4k
+:is(
+  div._3qDWQGB0rtwM3qpXTb11Q-,
+  div._2v1XDHrL4pTW4qCXaYUPG6,
+  div._21hXW2oDD7zvNsoOaW7Yob,
+  div._1oYt_BfxCHnA-_6sfUHiNn
+)
+{
+  border: 0 !important;
+  outline: 0 !important;
+  background: var(--loew-surface-2) !important;
+  box-shadow: var(--loew-control-shadow) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1EAxK56o5a9Nieu5HYkJ4k
+:is(
+  div._3qDWQGB0rtwM3qpXTb11Q-,
+  div._2v1XDHrL4pTW4qCXaYUPG6,
+  div._21hXW2oDD7zvNsoOaW7Yob,
+  div._1oYt_BfxCHnA-_6sfUHiNn
+):hover
+{
+  background: var(--loew-surface-3) !important;
+  box-shadow: 0 4px 11px rgb(0 0 0 / 24%) !important;
+}
+
+/* Navigation is still borderless, now visibly layered beneath the Play rail. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._3-V8vjmrwuJM6Ws3tsjFJj div._25f0fX6qbgdB7O_lMrbhCN
+{
+  background: var(--loew-surface-2) !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: var(--loew-nav-shadow) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._25f0fX6qbgdB7O_lMrbhCN div._1b6LYWVijW-9E4YV0keDWZ:hover
+{
+  background: color-mix(in srgb, var(--adw-accent-bg) 18%, var(--loew-surface-3)) !important;
+  color: var(--adw-window-fg) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._25f0fX6qbgdB7O_lMrbhCN div._1b6LYWVijW-9E4YV0keDWZ:active
+{
+  background: color-mix(in srgb, var(--adw-accent-bg) 30%, var(--loew-surface-3)) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._25f0fX6qbgdB7O_lMrbhCN div._1b6LYWVijW-9E4YV0keDWZ:focus-visible
+{
+  background: color-mix(in srgb, var(--adw-accent-bg) 24%, var(--loew-surface-3)) !important;
+  color: var(--adw-window-fg) !important;
+  text-decoration-color: var(--adw-accent) !important;
+}
+
+/* Accent extends to details-page progress and enabled composer action. */
+body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE[data-loew-palette="sampled"]
+:is(div._25YVDTaClw6Y2COPsU0UaV, div._16quGbk-i_9yE-tFyyOK8G)
+{
+  color: var(--adw-accent) !important;
+}
+
+body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE[data-loew-palette="sampled"]
+div._3x31AgESSlUqX3D4MTHv2m div._2JSyABqFEh-v_dwaTnBydR.bGfjajFo4DI-ULSQxw1KY
+{
+  background: var(--adw-accent-bg) !important;
+  color: var(--adw-accent-fg) !important;
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--adw-accent-bg) 28%, transparent) !important;
+}
+
+/* Activity: eliminate inherited positional drift and make every partner event self-contained. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib
+{
+  display: block !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  isolation: isolate !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib > div.UVeN0kaD3zv1feMj_mMw5
+{
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
+  float: none !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 0 14px !important;
+  box-sizing: border-box !important;
+  isolation: isolate !important;
+  z-index: 1 !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.UVeN0kaD3zv1feMj_mMw5
+:is(
+  div._39Zk32AvV5cr6g-83IVRVS,
+  div._3xi-HLpFVHaakihoqhQ_6C,
+  div._1AYE16384J_ecLpN0sEYc5,
+  div._1HZy7BvOZuPT8feUwadL4W,
+  div.LibriMVXcLl1HB60ZUp78
+)
+{
+  position: static !important;
+  inset: auto !important;
+  transform: none !important;
+  float: none !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.UVeN0kaD3zv1feMj_mMw5
+:is(div._2gv3EsHSu5dMQyMqaz-W9t, div._2tDv0EeJIdDmZLyfUE63t1)
+{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) clamp(220px, 34%, 420px) !important;
+  grid-template-areas: "copy media" !important;
+  align-items: start !important;
+  gap: 16px !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 128px !important;
+  overflow: hidden !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.UVeN0kaD3zv1feMj_mMw5
+:is(div._3dJ4Bq6Msivz5-UIHzSEQu, div._2HzKE96Sc4z6KHN68gr4DS)
+{
+  grid-area: copy !important;
+  position: relative !important;
+  align-self: start !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 4px 0 4px 58px !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.UVeN0kaD3zv1feMj_mMw5
+:is(div.ddB5GVHCwLezhshXUMCNL, div._1XpBItdUymdlwPZzvvOnyW)
+{
+  grid-area: media !important;
+  align-self: start !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 420px !important;
+  margin: 0 !important;
+}
+
+/* Source tile aligns with the first line, grows slightly, and uses the game icon when available. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.UVeN0kaD3zv1feMj_mMw5
+:is(div._3dJ4Bq6Msivz5-UIHzSEQu, div._2HzKE96Sc4z6KHN68gr4DS)::before
+{
+  left: 0 !important;
+  top: 2px !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 11px !important;
+  background-color: var(--loew-surface-3) !important;
+  background-image: var(--loew-game-icon-image, none) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border: 0 !important;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 22%) !important;
+}
+
+body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE[data-loew-game-icon="1"]
+div.UVeN0kaD3zv1feMj_mMw5
+:is(div._3dJ4Bq6Msivz5-UIHzSEQu, div._2HzKE96Sc4z6KHN68gr4DS)::after
+{
+  display: none !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.UVeN0kaD3zv1feMj_mMw5
+:is(div._3dJ4Bq6Msivz5-UIHzSEQu, div._2HzKE96Sc4z6KHN68gr4DS)::after
+{
+  left: 12px !important;
+  top: 14px !important;
+  width: 20px !important;
+  height: 20px !important;
+  mask-size: 20px !important;
+}
+
+/* Native Activity game icons receive the same top-line geometry. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib ._2B8T_uqbddQRWQ2z4FjgPW
+{
+  width: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  max-height: 44px !important;
+  margin: 0 10px 0 0 !important;
+  align-self: flex-start !important;
+  border-radius: 11px !important;
+  overflow: hidden !important;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 22%) !important;
+}
+
+/* Date headers own their own row and cannot be swallowed by the preceding event. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.S2Fu9HxHCA5MaCLGrN2ib ._19LfMT7PFWg2xHOqNjR99q
+{
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
+  float: none !important;
+  clear: both !important;
+  display: block !important;
+  width: 100% !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+  padding: 12px 0 8px !important;
+  box-sizing: border-box !important;
+  background: var(--loew-surface-0) !important;
+  isolation: isolate !important;
+  z-index: 2 !important;
+}
+
+/* Play action: ready uses sampled accent, launching pulses actively,
+ * running breathes slowly, stopping holds sienna with no pulse. */
+body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE[data-loew-runtime]
+div._1FnJ6dPuknQFQ2RTpKTI16
+{
+  box-shadow: 0 4px 12px rgb(0 0 0 / 24%) !important;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease !important;
+}
+
+body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE[data-loew-runtime]
+div._1FnJ6dPuknQFQ2RTpKTI16[data-loew-state="ready"]
+{
+  animation: none !important;
+}
+
+body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE[data-loew-runtime]
+div._1FnJ6dPuknQFQ2RTpKTI16[data-loew-state="launching"]
+{
+  animation: loew-action-pulse-active .9s ease-in-out infinite !important;
+}
+
+body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE[data-loew-runtime]
+div._1FnJ6dPuknQFQ2RTpKTI16[data-loew-state="running"]
+{
+  animation: loew-action-pulse-running 2.8s ease-in-out infinite !important;
+}
+
+body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE[data-loew-runtime]
+div._1FnJ6dPuknQFQ2RTpKTI16[data-loew-state="stopping"]
+{
+  animation: none !important;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 24%) !important;
+}
+
+@keyframes loew-action-pulse-active
+{
+  0%, 100%
+  {
+    filter: brightness(1);
+    box-shadow:
+      0 4px 12px rgb(0 0 0 / 24%),
+      0 0 0 0 color-mix(in srgb, var(--loew-action-bg) 34%, transparent) !important;
+  }
+  50%
+  {
+    filter: brightness(1.10);
+    box-shadow:
+      0 5px 16px rgb(0 0 0 / 26%),
+      0 0 0 8px color-mix(in srgb, var(--loew-action-bg) 20%, transparent) !important;
+  }
+}
+
+@keyframes loew-action-pulse-running
+{
+  0%, 100%
+  {
+    filter: brightness(1);
+    box-shadow:
+      0 4px 12px rgb(0 0 0 / 22%),
+      0 0 0 0 color-mix(in srgb, var(--loew-action-bg) 24%, transparent) !important;
+  }
+  50%
+  {
+    filter: brightness(1.045);
+    box-shadow:
+      0 5px 14px rgb(0 0 0 / 24%),
+      0 0 0 5px color-mix(in srgb, var(--loew-action-bg) 12%, transparent) !important;
+  }
+}
+
+@container loew-activity (max-width: 600px)
+{
+  body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+  div.UVeN0kaD3zv1feMj_mMw5
+  :is(div._2gv3EsHSu5dMQyMqaz-W9t, div._2tDv0EeJIdDmZLyfUE63t1)
+  {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas:
+      "media"
+      "copy" !important;
+  }
+
+  body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+  div.UVeN0kaD3zv1feMj_mMw5
+  :is(div.ddB5GVHCwLezhshXUMCNL, div._1XpBItdUymdlwPZzvvOnyW)
+  {
+    max-width: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce)
+{
+  body.DesktopUI div._2Nq6ov7A1hGcHXVOXNt_OE[data-loew-runtime]
+  div._1FnJ6dPuknQFQ2RTpKTI16
+  {
+    animation: none !important;
+    transition: none !important;
+  }
+}
