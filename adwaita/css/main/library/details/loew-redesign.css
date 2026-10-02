@@ -1,12 +1,10 @@
 /*
  * loew game details
- * Native-Steam composition on top of current Adwaita 4.x.
+ * Native-Steam content treatment on top of current Adwaita 4.x.
  *
- * Design contract:
- * - hero first
- * - Play/options stays intact in function, but returns to a compact bar under hero
- * - activity/news gets the primary column
- * - game info becomes a normal secondary column instead of a full-height rail
+ * IMPORTANT:
+ * The Play/options header is intentionally untouched.
+ * This file only changes the hero treatment and everything below it.
  */
 
 :root
@@ -14,15 +12,12 @@
 	--loew-details-max-width: 1360px;
 	--loew-details-side-width: 320px;
 	--loew-details-gap: 24px;
-	--loew-details-hero-height: clamp(300px, 28vw, 380px);
-	--loew-details-playbar-height: 68px;
 
-	/* Current Adwaita header math reads this variable. Keep it compact. */
-	--adw-library-details-header-height: var(--loew-details-playbar-height);
-	--adw-library-details-hero-image-height: var(--loew-details-hero-height);
+	/* Current Adwaita header math already understands this variable. */
+	--adw-library-details-hero-image-height: 340px;
 }
 
-/* Stop reserving a permanent rail for the v4 sidebar. */
+/* v4 reserves a full-height 300px rail. We only need room beside page content. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 {
 	position: relative !important;
@@ -30,49 +25,22 @@ body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 }
 
 /*
- * Re-establish the visual order the older Steam page used:
- * hero -> Play/options -> page content.
+ * HERO
+ * Keep Steam's native artwork treatment, just give it more presence and
+ * remove the v4 side crop/mask.
  */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1_cYNJSvS6IXs9vLTEYjy5
-{
-	display: flex !important;
-	flex-direction: column !important;
-	min-width: 0 !important;
-}
-
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ
 {
-	order: 1 !important;
 	position: relative !important;
-	height: var(--loew-details-hero-height) !important;
-	min-height: var(--loew-details-hero-height) !important;
-	margin: 0 !important;
+	height: var(--adw-library-details-hero-image-height) !important;
+	min-height: var(--adw-library-details-hero-image-height) !important;
 	overflow: hidden !important;
 	background: var(--adw-window-bg) !important;
 	color: var(--adw-window-fg) !important;
 }
 
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1U7LKpx70kEsz3jJwAFOi-
-{
-	order: 2 !important;
-	position: relative !important;
-	width: 100% !important;
-	height: var(--loew-details-playbar-height) !important;
-	min-height: var(--loew-details-playbar-height) !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	overflow: visible !important;
-	background: var(--adw-window-bg) !important;
-	border-bottom: 1px solid color-mix(in srgb, var(--adw-window-fg) var(--adw-border-opacity), transparent) !important;
-}
-
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._27RcNu8aXKBpYkHcNNrt-X
-{
-	order: 3 !important;
-}
-
-/* Hero art: full-bleed, no v4 side-mask treatment. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ div.NZMJ6g2iVnFsOOp-lDmIP
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ div.NZMJ6g2iVnFsOOp-lDmIP
 {
 	height: 100% !important;
 	min-height: 100% !important;
@@ -82,8 +50,10 @@ body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ div.NZMJ6
 	background-image: none !important;
 }
 
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ div.QlR9EFwTdUNm_J5vx54_Z,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ div.QlR9EFwTdUNm_J5vx54_Z,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
 {
 	width: 100% !important;
 	height: 100% !important;
@@ -92,7 +62,8 @@ body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf
 	-webkit-mask-image: none !important;
 }
 
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
 {
 	margin: 0 !important;
 	object-fit: cover !important;
@@ -111,124 +82,18 @@ body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ::after
 		linear-gradient(
 			to bottom,
 			transparent 0%,
-			transparent 63%,
-			color-mix(in srgb, var(--adw-window-bg) 18%, transparent) 76%,
-			color-mix(in srgb, var(--adw-window-bg) 68%, transparent) 92%,
+			transparent 64%,
+			color-mix(in srgb, var(--adw-window-bg) 16%, transparent) 76%,
+			color-mix(in srgb, var(--adw-window-bg) 62%, transparent) 91%,
 			var(--adw-window-bg) 100%
 		) !important;
 	box-shadow: inset 0 1px 0 color-mix(in srgb, currentColor var(--adw-border-opacity), transparent) !important;
 }
 
 /*
- * Compact Play/options bar.
- * We are only undoing v4's large absolute "header composition";
- * the actual controls and their behavior stay Steam's.
- */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._3fLo166MlaNqP8r8tTyRz
-{
-	width: min(100%, var(--loew-details-max-width)) !important;
-	max-width: var(--loew-details-max-width) !important;
-	height: 100% !important;
-	box-sizing: border-box !important;
-	margin: 0 auto !important;
-	padding: 10px 24px !important;
-	background: none !important;
-}
-
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._3Y87YQY56ZCOqhgcZFaDc5
-{
-	position: relative !important;
-	display: flex !important;
-	align-items: center !important;
-	gap: 10px !important;
-	width: 100% !important;
-	height: 48px !important;
-	box-sizing: border-box !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	overflow: visible !important;
-}
-
-/* The large v4 game-icon/title composition is redundant with the hero. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._2MBVRXpsw6DUjs7937DWZW
-{
-	display: none !important;
-}
-
-/* Play button back into normal flow. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._1FnJ6dPuknQFQ2RTpKTI16
-{
-	position: relative !important;
-	top: auto !important;
-	right: auto !important;
-	left: auto !important;
-	bottom: auto !important;
-	min-width: 140px !important;
-	height: 44px !important;
-	margin: 0 !important;
-	flex: 0 0 auto !important;
-}
-
-/* Manage/options button beside Play. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._3oddBTkj_FjknCgBnPqcmQ,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._1bIMOmWaxKrMdVMWU21ku
-{
-	position: relative !important;
-	top: auto !important;
-	right: auto !important;
-	left: auto !important;
-	bottom: auto !important;
-	margin: 0 !important;
-	flex: 0 0 auto !important;
-}
-
-/* Status/stats occupy the middle of the compact bar. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._1mDAVT4sTzFRwJtlKCw2Ws
-{
-	position: relative !important;
-	left: auto !important;
-	right: auto !important;
-	top: auto !important;
-	bottom: auto !important;
-	width: auto !important;
-	height: 44px !important;
-	min-width: 0 !important;
-	box-sizing: border-box !important;
-	margin: 0 !important;
-	padding: 0 8px !important;
-	flex: 1 1 auto !important;
-	display: flex !important;
-	align-items: center !important;
-	mask-image: none !important;
-	-webkit-mask-image: none !important;
-}
-
-/* Deck/controller compatibility belongs at the far right of the bar. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div.IIJeieZ-ZPRfIULY7uSDG
-{
-	position: relative !important;
-	right: auto !important;
-	left: auto !important;
-	top: auto !important;
-	bottom: auto !important;
-	width: auto !important;
-	min-width: 0 !important;
-	margin: 0 0 0 auto !important;
-	flex: 0 1 auto !important;
-}
-
-/*
- * Desktop content.
- * The info column is positioned next to Activity without becoming its own
- * full-height background surface.
+ * MAIN CONTENT
+ * Activity/news owns the primary column. Secondary game info sits beside it,
+ * but the ugly full-height rail/background is gone.
  */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div.OhSdLYuggDtBcWjYP0j_9
 {
@@ -236,15 +101,42 @@ body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div.OhSdLYuggDtBcWjYP0j_9
 	max-width: var(--loew-details-max-width) !important;
 	box-sizing: border-box !important;
 	margin: 0 auto !important;
-	padding: 24px calc(var(--loew-details-side-width) + var(--loew-details-gap) + 24px) 32px 24px !important;
+	padding:
+		24px
+		calc(var(--loew-details-side-width) + var(--loew-details-gap) + 24px)
+		32px
+		24px !important;
 }
 
+/* Primary sections can use the full primary-column width. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.OhSdLYuggDtBcWjYP0j_9 div._3yTl3RiWfo-Itg-xp967wP
+{
+	width: 100% !important;
+	max-width: none !important;
+	box-sizing: border-box !important;
+	margin: 0 !important;
+	padding: 0 0 24px !important;
+}
+
+/*
+ * SECONDARY INFO
+ * Keep it visually attached to the page instead of painting a second
+ * full-height application sidebar.
+ */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
 {
 	position: absolute !important;
 	z-index: 3 !important;
-	top: calc(var(--loew-details-hero-height) + var(--loew-details-playbar-height) + 24px) !important;
-	right: max(24px, calc((100% - var(--loew-details-max-width)) / 2 + 24px)) !important;
+	top: calc(
+		var(--adw-library-details-header-height)
+		+ var(--adw-library-details-hero-image-height)
+		+ 24px
+	) !important;
+	right: max(
+		24px,
+		calc((100% - var(--loew-details-max-width)) / 2 + 24px)
+	) !important;
 	bottom: auto !important;
 	width: var(--loew-details-side-width) !important;
 	height: auto !important;
@@ -259,7 +151,7 @@ body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
 	animation: none !important;
 }
 
-/* The sidebar's own sections become normal floating modules. */
+/* Individual modules get separation instead of merging into one rail. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2aor4XVOYzN1PBSREk0UbO div._2r4TK4BAuU-J4FuF_O7v_5
 {
@@ -267,18 +159,16 @@ div._2aor4XVOYzN1PBSREk0UbO div._2r4TK4BAuU-J4FuF_O7v_5
 	padding: 0 !important;
 }
 
-/* Primary sections use the full primary-column width. */
+/*
+ * ACTIVITY / NEWS
+ * Separate events visually and stop dates from kissing the previous card.
+ */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.OhSdLYuggDtBcWjYP0j_9 div._3yTl3RiWfo-Itg-xp967wP
+div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel
 {
-	width: 100% !important;
-	max-width: none !important;
-	box-sizing: border-box !important;
-	margin: 0 !important;
-	padding: 0 0 24px !important;
+	margin-bottom: 18px !important;
 }
 
-/* Activity/news gets clear card rhythm. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div.S2Fu9HxHCA5MaCLGrN2ib > div > div.UVeN0kaD3zv1feMj_mMw5,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
@@ -286,13 +176,13 @@ div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._31ptFGGMZrSQc5BCX1e5lm > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5
 {
-	margin: 0 0 12px !important;
+	margin: 0 !important;
 	border-radius: var(--adw-card-radius) !important;
 	box-shadow: var(--adw-card-shadow), var(--adw-card-outline-last) !important;
 	overflow: hidden !important;
 }
 
-/* Date/event metadata gets a line of its own. */
+/* Date/event metadata has its own breathing space. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1ujzuoxGhLunHZQqHAqRgg
 {
 	position: relative !important;
@@ -300,13 +190,13 @@ body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1ujzuoxGhLunHZQqHAqRgg
 	width: auto !important;
 	height: auto !important;
 	min-height: 18px !important;
-	margin: 16px 4px 8px !important;
+	margin: 18px 4px 10px !important;
 	padding: 0 !important;
 	overflow: visible !important;
 	-webkit-line-clamp: unset !important;
 }
 
-/* Major update artwork stays present without taking over the row. */
+/* Publisher/news art remains substantial but never swallows the row. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
@@ -317,12 +207,12 @@ div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
 	max-width: 360px !important;
 }
 
-/* Medium window: drop the secondary column back into normal flow. */
+/* Smaller desktop windows: secondary modules return to normal flow. */
 @media (max-width: 1120px)
 {
 	:root
 	{
-		--loew-details-hero-height: clamp(280px, 32vw, 340px);
+		--adw-library-details-hero-image-height: 300px;
 	}
 
 	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div.OhSdLYuggDtBcWjYP0j_9
@@ -347,14 +237,7 @@ div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
 {
 	:root
 	{
-		--loew-details-hero-height: 260px;
-	}
-
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-	div._1U7LKpx70kEsz3jJwAFOi- div._3fLo166MlaNqP8r8tTyRz
-	{
-		padding-left: 12px !important;
-		padding-right: 12px !important;
+		--adw-library-details-hero-image-height: 260px;
 	}
 
 	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
