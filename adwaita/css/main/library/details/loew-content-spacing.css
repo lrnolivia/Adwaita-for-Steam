@@ -1,0 +1,144 @@
+/* BEGIN loew-content-spacing-v1 */
+/* Bounded follow-up to 395f96e. Keep page geometry, Play and hero unchanged.
+ * One internal inset per sidebar body, and one width for all publisher cards.
+ * Do not position or add margins to Steam's generic/virtualized Panel nodes.
+ */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA {
+  div._2aor4XVOYzN1PBSREk0UbO div._31ptFGGMZrSQc5BCX1e5lm {
+    padding: 0 !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    border: 0 !important;
+    background: var(--loew-surface-1) !important;
+    box-shadow: 0 5px 14px rgba(0,0,0,.16) !important;
+  }
+  div._2aor4XVOYzN1PBSREk0UbO div._5uvIN6jXDXzzck59F-nhv {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 16px !important;
+    overflow-wrap: anywhere;
+  }
+  div._2aor4XVOYzN1PBSREk0UbO div._38t1mljBjmJfqjpVzMT1CG {
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 16px !important;
+    border: 0 !important;
+    background: var(--loew-surface-2) !important;
+    box-shadow: none !important;
+  }
+  div._2aor4XVOYzN1PBSREk0UbO div.QO0udpE4qSEcDjkVg5IwH {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 12px 0 0 !important;
+    padding: 0 !important;
+  }
+  div._2aor4XVOYzN1PBSREk0UbO button._3Cdin80d-hVsakHUZboheb {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 36px !important;
+    height: auto !important;
+    box-sizing: border-box !important;
+    padding: 8px 10px !important;
+    white-space: normal !important;
+    line-height: 1.3 !important;
+    border: 0 !important;
+    background: var(--loew-surface-2) !important;
+    box-shadow: none !important;
+  }
+  div._2aor4XVOYzN1PBSREk0UbO div._5uvIN6jXDXzzck59F-nhv > button._3Cdin80d-hVsakHUZboheb {
+    display: block !important;
+    margin: 12px 0 0 auto !important;
+  }
+  div._2aor4XVOYzN1PBSREk0UbO div.QO0udpE4qSEcDjkVg5IwH > button {
+    flex: 1 1 128px !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    white-space: normal !important;
+  }
+
+  /* Only publisher-event shells stretch. User activity keeps its native row. */
+  div.UVeN0kaD3zv1feMj_mMw5:has(div._2gv3EsHSu5dMQyMqaz-W9t),
+  div.UVeN0kaD3zv1feMj_mMw5:has(div._2tDv0EeJIdDmZLyfUE63t1) {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: var(--loew-surface-2) !important;
+    box-shadow: 0 5px 14px rgba(0,0,0,.16) !important;
+  }
+  div.UVeN0kaD3zv1feMj_mMw5 :is(
+    div._39Zk32AvV5cr6g-83IVRVS, div._3xi-HLpFVHaakihoqhQ_6C,
+    div._1AYE16384J_ecLpN0sEYc5, div._1HZy7BvOZuPT8feUwadL4W,
+    div.LibriMVXcLl1HB60ZUp78) {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    flex: 1 1 auto !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-image: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  div.UVeN0kaD3zv1feMj_mMw5 :is(div._2gv3EsHSu5dMQyMqaz-W9t, div._2tDv0EeJIdDmZLyfUE63t1) {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) minmax(176px,34%) !important;
+    grid-template-areas: "copy media" !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    gap: 14px !important;
+  }
+  div.UVeN0kaD3zv1feMj_mMw5 :is(div._2gv3EsHSu5dMQyMqaz-W9t, div._2tDv0EeJIdDmZLyfUE63t1)
+    > :is(div._3dJ4Bq6Msivz5-UIHzSEQu, div._2HzKE96Sc4z6KHN68gr4DS) {
+    grid-area: copy !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  div.UVeN0kaD3zv1feMj_mMw5 :is(div._2gv3EsHSu5dMQyMqaz-W9t, div._2tDv0EeJIdDmZLyfUE63t1)
+    > :is(div.ddB5GVHCwLezhshXUMCNL, div._1XpBItdUymdlwPZzvvOnyW) {
+    grid-area: media !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Space inside the date heading is measurable; collapsing margins are not.
+   * No positioning or transforms on the surrounding virtual list. */
+  div.S2Fu9HxHCA5MaCLGrN2ib ._19LfMT7PFWg2xHOqNjR99q {
+    margin: 0 !important;
+    padding: 12px 0 8px !important;
+    min-height: 40px !important;
+    box-sizing: border-box !important;
+    line-height: 20px !important;
+  }
+}
+@container loew-activity (max-width: 600px) {
+  body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+  div.UVeN0kaD3zv1feMj_mMw5 :is(div._2gv3EsHSu5dMQyMqaz-W9t, div._2tDv0EeJIdDmZLyfUE63t1) {
+    grid-template-columns: minmax(0,1fr) !important;
+    grid-template-areas: "media" "copy" !important;
+  }
+}
+/* END loew-content-spacing-v1 */
