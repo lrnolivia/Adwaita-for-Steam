@@ -1,424 +1,82 @@
 /*
  * loew game details
- * Native-Steam content treatment on top of current Adwaita 4.x.
+ * Baseline: Adwaita-for-Steam 3.17 game-details structure.
  *
- * IMPORTANT:
- * The Play/options header is intentionally untouched.
- * This file only changes the hero treatment and everything below it.
+ * The 3.17 header/activity/details files intentionally restore the native
+ * Steam composition the user prefers. This file only adds targeted polish.
  */
 
-:root
-{
-	--loew-details-max-width: 1360px;
-	--loew-details-side-width: 320px;
-	--loew-details-gap: 24px;
-
-	/* Current Adwaita header math already understands this variable. */
-	--adw-library-details-hero-image-height: 340px;
-}
-
-/* v4 reserves a full-height 300px rail. We only need room beside page content. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-{
-	position: relative !important;
-	padding-right: 0 !important;
-}
-
-/*
+/* --------------------------------------------------------------------------
  * HERO
- * Keep Steam's native artwork treatment, just give it more presence and
- * remove the v4 side crop/mask.
- */
+ * Keep the old native-style hero. Only add a subtle lower fade so art flows
+ * into the page without turning it into a background gradient.
+ * -------------------------------------------------------------------------- */
+
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ
 {
 	position: relative !important;
-	height: var(--adw-library-details-hero-image-height) !important;
-	min-height: var(--adw-library-details-hero-image-height) !important;
 	overflow: hidden !important;
 	background: var(--adw-window-bg) !important;
-	color: var(--adw-window-fg) !important;
-}
-
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2gZXhRmKUk68pA28-5ZmGQ div.NZMJ6g2iVnFsOOp-lDmIP
-{
-	height: 100% !important;
-	min-height: 100% !important;
-	transform: none !important;
-	will-change: auto !important;
-	background-attachment: scroll !important;
-	background-image: none !important;
-}
-
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2gZXhRmKUk68pA28-5ZmGQ div.QlR9EFwTdUNm_J5vx54_Z,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
-{
-	width: 100% !important;
-	height: 100% !important;
-	transform: none !important;
-	mask-image: none !important;
-	-webkit-mask-image: none !important;
-}
-
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
-{
-	margin: 0 !important;
-	object-fit: cover !important;
-	object-position: center 42% !important;
-	filter: saturate(.97) contrast(1.02) !important;
 }
 
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ::after
 {
 	content: "" !important;
 	position: absolute !important;
-	inset: 0 !important;
-	z-index: 1 !important;
+	left: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	height: 48px !important;
 	pointer-events: none !important;
-	background:
-		linear-gradient(
-			to bottom,
-			transparent 0%,
-			transparent 64%,
-			color-mix(in srgb, var(--adw-window-bg) 16%, transparent) 76%,
-			color-mix(in srgb, var(--adw-window-bg) 62%, transparent) 91%,
-			var(--adw-window-bg) 100%
-		) !important;
-	box-shadow: inset 0 1px 0 color-mix(in srgb, currentColor var(--adw-border-opacity), transparent) !important;
-}
-
-/*
- * MAIN CONTENT
- * Activity/news owns the primary column. Secondary game info sits beside it,
- * but the ugly full-height rail/background is gone.
- */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div.OhSdLYuggDtBcWjYP0j_9
-{
-	width: auto !important;
-	max-width: var(--loew-details-max-width) !important;
-	box-sizing: border-box !important;
-	margin: 0 auto !important;
-	padding:
-		24px
-		calc(var(--loew-details-side-width) + var(--loew-details-gap) + 24px)
-		32px
-		24px !important;
-}
-
-/* Primary sections can use the full primary-column width. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.OhSdLYuggDtBcWjYP0j_9 div._3yTl3RiWfo-Itg-xp967wP
-{
-	width: 100% !important;
-	max-width: none !important;
-	box-sizing: border-box !important;
-	margin: 0 !important;
-	padding: 0 0 24px !important;
-}
-
-/*
- * SECONDARY INFO
- * Keep it visually attached to the page instead of painting a second
- * full-height application sidebar.
- */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
-{
-	position: absolute !important;
-	z-index: 3 !important;
-	top: calc(
-		var(--adw-library-details-header-height)
-		+ var(--adw-library-details-hero-image-height)
-		+ 24px
+	background: linear-gradient(
+		to bottom,
+		transparent,
+		color-mix(in srgb, var(--adw-window-bg) 72%, transparent)
 	) !important;
-	right: max(
-		24px,
-		calc((100% - var(--loew-details-max-width)) / 2 + 24px)
-	) !important;
-	bottom: auto !important;
-	width: var(--loew-details-side-width) !important;
-	height: auto !important;
-	max-height: none !important;
-	box-sizing: border-box !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	overflow: visible !important;
-	background: transparent !important;
-	color: var(--adw-window-fg) !important;
-	border: 0 !important;
-	animation: none !important;
 }
 
-/* Individual modules get separation instead of merging into one rail. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2aor4XVOYzN1PBSREk0UbO div._2r4TK4BAuU-J4FuF_O7v_5
-{
-	margin: 0 0 20px !important;
-	padding: 0 !important;
-}
+/* --------------------------------------------------------------------------
+ * ACTIVITY RHYTHM
+ * Separate entries cleanly so dates never collide with the card before them.
+ * -------------------------------------------------------------------------- */
 
-/*
- * ACTIVITY / NEWS
- * Separate events visually and stop dates from kissing the previous card.
- */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel
 {
-	margin-bottom: 18px !important;
+	margin-bottom: 16px !important;
 }
 
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div.S2Fu9HxHCA5MaCLGrN2ib > div > div.UVeN0kaD3zv1feMj_mMw5,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._31ptFGGMZrSQc5BCX1e5lm > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5
+div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5
 {
-	margin: 0 !important;
 	border-radius: var(--adw-card-radius) !important;
+	overflow: visible !important;
 	box-shadow: var(--adw-card-shadow), var(--adw-card-outline-last) !important;
-	overflow: hidden !important;
 }
 
-/* Date/event metadata has its own breathing space. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1ujzuoxGhLunHZQqHAqRgg
 {
-	position: relative !important;
+	position: static !important;
+	float: none !important;
+	transform: none !important;
 	display: block !important;
 	width: auto !important;
 	height: auto !important;
 	min-height: 18px !important;
-	margin: 18px 4px 10px !important;
+	margin: 10px 4px 8px !important;
 	padding: 0 !important;
+	line-height: 18px !important;
 	overflow: visible !important;
 	-webkit-line-clamp: unset !important;
 }
 
-/* Publisher/news art remains substantial but never swallows the row. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
-{
-	width: clamp(220px, 34%, 360px) !important;
-	min-width: 220px !important;
-	max-width: 360px !important;
-}
+/* --------------------------------------------------------------------------
+ * PUBLISHER / NEWS CARDS
+ * Real media on the right. Solid card on the left. No image-gradient wash.
+ * -------------------------------------------------------------------------- */
 
-/* Smaller desktop windows: secondary modules return to normal flow. */
-@media (max-width: 1120px)
-{
-	:root
-	{
-		--adw-library-details-hero-image-height: 300px;
-	}
-
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div.OhSdLYuggDtBcWjYP0j_9
-	{
-		padding: 20px !important;
-	}
-
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
-	{
-		position: relative !important;
-		top: auto !important;
-		right: auto !important;
-		width: auto !important;
-		margin: 20px !important;
-		display: grid !important;
-		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-		gap: 16px !important;
-	}
-}
-
-@media (max-width: 720px)
-{
-	:root
-	{
-		--adw-library-details-hero-image-height: 260px;
-	}
-
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
-	{
-		grid-template-columns: minmax(0, 1fr) !important;
-		margin: 16px !important;
-	}
-}
-
-
-/* ==========================================================================
- * pass 4: restore pre-v4 visual order + rebuild activity media cards
- * ========================================================================== */
-
-:root
-{
-	/* The v4 header was 240px tall. We only need a compact control bar. */
-	--adw-library-details-header-height: 72px;
-}
-
-/*
- * YES: this is the correction for the v4 composition.
- * Remove the artificial header gap above the hero and let the inline Play bar
- * sit in normal flow after the hero again.
- */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ
-{
-	margin-top: 0 !important;
-}
-
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1_cYNJSvS6IXs9vLTEYjy5 > div._1U7LKpx70kEsz3jJwAFOi-
-{
-	margin-top: 0 !important;
-	margin-bottom: 0 !important;
-	width: 100% !important;
-	height: var(--adw-library-details-header-height) !important;
-	min-height: var(--adw-library-details-header-height) !important;
-	background: var(--adw-window-bg) !important;
-	border-top: 1px solid color-mix(in srgb, var(--adw-window-fg) var(--adw-border-opacity), transparent) !important;
-	border-bottom: 1px solid color-mix(in srgb, var(--adw-window-fg) var(--adw-border-opacity), transparent) !important;
-	overflow: visible !important;
-}
-
-/* Hide v4's separate icon/title composition. The hero is the identity surface. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1_cYNJSvS6IXs9vLTEYjy5 > div._25oBZpa3dUcMw8QAsa2u67,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._2MBVRXpsw6DUjs7937DWZW
-{
-	display: none !important;
-}
-
-/* Make the Play/options surface a real horizontal bar again. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- > div._3fLo166MlaNqP8r8tTyRz
-{
-	width: min(100%, var(--loew-details-max-width)) !important;
-	max-width: var(--loew-details-max-width) !important;
-	height: 100% !important;
-	box-sizing: border-box !important;
-	margin: 0 auto !important;
-	padding: 12px 24px !important;
-	background: none !important;
-}
-
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._3Y87YQY56ZCOqhgcZFaDc5
-{
-	position: relative !important;
-	display: flex !important;
-	flex-direction: row !important;
-	align-items: center !important;
-	gap: 10px !important;
-	width: 100% !important;
-	height: 46px !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	overflow: visible !important;
-}
-
-/* Play */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._1FnJ6dPuknQFQ2RTpKTI16
-{
-	position: relative !important;
-	top: auto !important;
-	right: auto !important;
-	bottom: auto !important;
-	left: auto !important;
-	min-width: 140px !important;
-	height: 44px !important;
-	margin: 0 !important;
-	flex: 0 0 auto !important;
-	order: 1 !important;
-}
-
-/* Manage and links */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._3oddBTkj_FjknCgBnPqcmQ,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._1bIMOmWaxKrMdVMWU21ku
-{
-	position: relative !important;
-	top: auto !important;
-	right: auto !important;
-	bottom: auto !important;
-	left: auto !important;
-	margin: 0 !important;
-	flex: 0 0 auto !important;
-	order: 2 !important;
-}
-
-/* Undo v4's zero-sized wrapper around the stats. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._9EHg918wH6CQCQlD5PWOO
-{
-	position: relative !important;
-	width: auto !important;
-	height: auto !important;
-	min-width: 0 !important;
-	overflow: visible !important;
-	flex: 1 1 auto !important;
-	order: 3 !important;
-}
-
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._1YbtIWcfkQJOysLXQbwzRf,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div.zjtAIAWI6HE0oCtJzw6Qt
-{
-	position: relative !important;
-	display: flex !important;
-	align-items: center !important;
-	min-width: 0 !important;
-}
-
-/* Stats row */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div._1mDAVT4sTzFRwJtlKCw2Ws
-{
-	position: relative !important;
-	left: auto !important;
-	right: auto !important;
-	top: auto !important;
-	bottom: auto !important;
-	width: auto !important;
-	min-width: 0 !important;
-	margin: 0 !important;
-	padding: 0 8px !important;
-	display: flex !important;
-	align-items: center !important;
-	justify-content: flex-start !important;
-	gap: 14px !important;
-	flex: 1 1 auto !important;
-	mask-image: none !important;
-	-webkit-mask-image: none !important;
-	overflow-x: auto !important;
-	overflow-y: hidden !important;
-}
-
-/* SteamOS compatibility at the far end */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1U7LKpx70kEsz3jJwAFOi- div.IIJeieZ-ZPRfIULY7uSDG
-{
-	position: relative !important;
-	position-anchor: auto !important;
-	right: auto !important;
-	left: auto !important;
-	top: auto !important;
-	bottom: auto !important;
-	width: auto !important;
-	margin: 0 0 0 auto !important;
-	flex: 0 0 auto !important;
-	order: 4 !important;
-}
-
-/*
- * ACTIVITY MEDIA CARDS
- * Real art, not a faded background treatment.
- */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._1HZy7BvOZuPT8feUwadL4W,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
@@ -426,6 +84,7 @@ div.LibriMVXcLl1HB60ZUp78
 {
 	background: var(--adw-card-bg) !important;
 	background-image: none !important;
+	border-radius: var(--adw-card-radius) !important;
 	overflow: visible !important;
 }
 
@@ -434,46 +93,128 @@ div._2gv3EsHSu5dMQyMqaz-W9t,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2tDv0EeJIdDmZLyfUE63t1
 {
-	gap: 16px !important;
-	padding: 12px !important;
+	position: relative !important;
+	display: flex !important;
+	flex-direction: row-reverse !important;
 	align-items: center !important;
-	background: none !important;
+	gap: 16px !important;
+	min-height: 136px !important;
+	margin: 0 !important;
+	padding: 10px !important;
+	background: var(--adw-card-bg) !important;
 	background-image: none !important;
+	border-radius: var(--adw-card-radius) !important;
+	overflow: visible !important;
 }
 
-/* Kill the synthetic update icon when real art is present. */
+/* Neutral icon tile gives the left side an actual visual anchor. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2gv3EsHSu5dMQyMqaz-W9t::before,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2tDv0EeJIdDmZLyfUE63t1::before
+{
+	content: "" !important;
+	position: absolute !important;
+	left: 16px !important;
+	top: 50% !important;
+	width: 42px !important;
+	height: 42px !important;
+	transform: translateY(-50%) !important;
+	border-radius: 11px !important;
+	background: color-mix(in srgb, var(--adw-card-fg) 7%, transparent) !important;
+	box-shadow:
+		inset 0 0 0 1px color-mix(in srgb, var(--adw-card-fg) 10%, transparent),
+		0 2px 5px rgba(0, 0, 0, .18) !important;
+	pointer-events: none !important;
+}
+
+/* Update/news glyph inside the neutral tile. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2gv3EsHSu5dMQyMqaz-W9t::after,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2tDv0EeJIdDmZLyfUE63t1::after
 {
-	content: none !important;
+	content: "" !important;
+	position: absolute !important;
+	left: 27px !important;
+	top: 50% !important;
+	width: 20px !important;
+	height: 20px !important;
+	transform: translateY(-50%) !important;
+	background-color: color-mix(in srgb, var(--adw-card-fg) 58%, transparent) !important;
+	-webkit-mask-image: var(--adw-icon-update) !important;
+	-webkit-mask-repeat: no-repeat !important;
+	-webkit-mask-position: center !important;
+	-webkit-mask-size: 20px !important;
+	pointer-events: none !important;
 }
 
-/* Real event/news art as a physical card element. */
+/* Text block: no negative overlap, stronger hierarchy, sensible wrapping. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._3dJ4Bq6Msivz5-UIHzSEQu,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._2HzKE96Sc4z6KHN68gr4DS
+{
+	min-width: 0 !important;
+	flex: 1 1 auto !important;
+	align-self: center !important;
+	box-sizing: border-box !important;
+	height: auto !important;
+	max-height: none !important;
+	margin: 0 !important;
+	margin-right: 0 !important;
+	padding: 10px 8px 10px 62px !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1gljEIuhbsQpFCWuVhdKTJ,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._3fsjzvni7TQ1NphLHM_5r3
+{
+	margin: 2px 0 4px !important;
+	font-size: var(--adw-text-title1-size) !important;
+	font-weight: var(--adw-text-title1-weight) !important;
+	line-height: 1.2 !important;
+	-webkit-line-clamp: 2 !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div.Ru7OBQzSxqIo3jIsbtV9g,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._3zwBRDW1egliiT4pKYIXap
+{
+	margin: 0 !important;
+	padding: 0 !important;
+	color: color-mix(in srgb, var(--adw-card-fg) 72%, transparent) !important;
+	line-height: 1.35 !important;
+	-webkit-line-clamp: 2 !important;
+}
+
+/* Real artwork, treated as an object rather than a faded background. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
 {
 	position: relative !important;
-	width: clamp(240px, 34%, 360px) !important;
-	min-width: 240px !important;
+	flex: 0 0 clamp(250px, 34%, 360px) !important;
+	width: clamp(250px, 34%, 360px) !important;
+	min-width: 250px !important;
 	max-width: 360px !important;
 	height: 116px !important;
 	min-height: 116px !important;
 	max-height: 116px !important;
+	align-self: center !important;
 	margin: 0 !important;
 	padding: 0 !important;
-	align-self: center !important;
-	overflow: visible !important;
+	overflow: hidden !important;
 	mask-image: none !important;
 	-webkit-mask-image: none !important;
 	border-radius: calc(var(--adw-card-radius) - 2px) !important;
 	background: transparent !important;
 	box-shadow:
-		0 12px 28px rgba(0, 0, 0, .34),
-		0 0 24px color-mix(in srgb, var(--adw-accent) 14%, transparent) !important;
+		0 10px 24px rgba(0, 0, 0, .36),
+		0 0 18px rgba(170, 170, 170, .14) !important;
 	transition:
 		transform var(--adw-transition-duration),
 		box-shadow var(--adw-transition-duration) !important;
@@ -504,7 +245,7 @@ div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW > img
 	box-shadow: none !important;
 }
 
-/* Clean edge, no gradient overlay. */
+/* Edge definition only. No gradient over the image. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL::after,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
@@ -517,10 +258,11 @@ div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW::after
 	height: auto !important;
 	border-radius: inherit !important;
 	box-shadow:
-		inset 0 0 0 1px color-mix(in srgb, var(--adw-card-fg) 12%, transparent) !important;
+		inset 0 0 0 1px rgba(190, 190, 190, .13) !important;
 	pointer-events: none !important;
 }
 
+/* Grey-only hover lift. No game/accent-colored glow. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._1HZy7BvOZuPT8feUwadL4W:hover
 div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
@@ -530,23 +272,49 @@ div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
 {
 	transform: translateY(-2px) !important;
 	box-shadow:
-		0 16px 34px rgba(0, 0, 0, .40),
-		0 0 30px color-mix(in srgb, var(--adw-accent) 20%, transparent) !important;
+		0 14px 30px rgba(0, 0, 0, .42),
+		0 0 22px rgba(180, 180, 180, .18) !important;
 }
 
-/* Dates must sit between cards, not on top of them. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel
+/* --------------------------------------------------------------------------
+ * RESPONSIVE
+ * Preserve the old Steam hierarchy while letting artwork shrink gracefully.
+ * -------------------------------------------------------------------------- */
+
+@media (max-width: 980px)
 {
-	margin-bottom: 22px !important;
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
+	{
+		flex-basis: 220px !important;
+		width: 220px !important;
+		min-width: 220px !important;
+	}
 }
 
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1ujzuoxGhLunHZQqHAqRgg
+@media (max-width: 720px)
 {
-	position: static !important;
-	float: none !important;
-	transform: none !important;
-	margin: 10px 4px 8px !important;
-	padding: 0 !important;
-	line-height: 18px !important;
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2gv3EsHSu5dMQyMqaz-W9t,
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2tDv0EeJIdDmZLyfUE63t1
+	{
+		flex-direction: column-reverse !important;
+		align-items: stretch !important;
+	}
+
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+	div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
+	{
+		flex-basis: auto !important;
+		width: 100% !important;
+		min-width: 100% !important;
+		max-width: 100% !important;
+		height: 180px !important;
+		max-height: 180px !important;
+	}
 }
