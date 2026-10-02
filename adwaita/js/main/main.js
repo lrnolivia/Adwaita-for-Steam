@@ -1,4 +1,3 @@
-import "./sidebar-toggle.js";
-import "../../loew/hero-accents.js";
-
-document.body.classList.add("adw-injected");
+/* No sidebar-toggle injection: the approved layout stays under Steam/CSS control. */
+import '../../loew/appearance.js';
+document.body.classList.add('adw-injected');
