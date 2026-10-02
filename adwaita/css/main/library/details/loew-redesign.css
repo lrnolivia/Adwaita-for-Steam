@@ -1,87 +1,253 @@
 /*
  * loew game details
- * Native-Steam structure with Adwaita finish.
+ * Native-Steam composition on top of current Adwaita 4.x.
  *
- * Scope: Steam desktop app-details page only.
- * The existing Play / options header is intentionally untouched.
+ * Design contract:
+ * - hero first
+ * - Play/options stays intact in function, but returns to a compact bar under hero
+ * - activity/news gets the primary column
+ * - game info becomes a normal secondary column instead of a full-height rail
  */
 
 :root
 {
-	--loew-library-details-max-width: 1320px;
-	--loew-library-details-side-width: 336px;
-	--loew-library-details-gap: 24px;
+	--loew-details-max-width: 1360px;
+	--loew-details-side-width: 320px;
+	--loew-details-gap: 24px;
+	--loew-details-hero-height: clamp(300px, 28vw, 380px);
+	--loew-details-playbar-height: 68px;
 
-	/* Give game art room again while keeping the current play-bar geometry. */
-	--adw-library-details-hero-image-height: 340px;
+	/* Current Adwaita header math reads this variable. Keep it compact. */
+	--adw-library-details-header-height: var(--loew-details-playbar-height);
+	--adw-library-details-hero-image-height: var(--loew-details-hero-height);
 }
 
-/* Stop v4 from reserving a permanent full-height sidebar rail. */
+/* Stop reserving a permanent rail for the v4 sidebar. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 {
+	position: relative !important;
 	padding-right: 0 !important;
 }
 
 /*
- * Restore the native Steam overview relationship:
- * primary game activity on the left, useful game info on the right.
+ * Re-establish the visual order the older Steam page used:
+ * hero -> Play/options -> page content.
  */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div[class*="appdetailsoverview_Container_"],
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._27RcNu8aXKBpYkHcNNrt-X
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1_cYNJSvS6IXs9vLTEYjy5
 {
-	display: grid !important;
-	grid-template-columns: minmax(0, 1fr) minmax(288px, var(--loew-library-details-side-width)) !important;
-	gap: var(--loew-library-details-gap) !important;
-	align-items: start !important;
-	box-sizing: border-box !important;
-	width: min(100%, var(--loew-library-details-max-width)) !important;
-	max-width: var(--loew-library-details-max-width) !important;
-	margin: 0 auto !important;
-	padding: 24px !important;
-}
-
-/* Primary column. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.OhSdLYuggDtBcWjYP0j_9
-{
+	display: flex !important;
+	flex-direction: column !important;
 	min-width: 0 !important;
-	width: 100% !important;
 }
 
-/* Let sections use the primary column instead of the old 860px clamp. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.OhSdLYuggDtBcWjYP0j_9
-div._3yTl3RiWfo-Itg-xp967wP,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.OhSdLYuggDtBcWjYP0j_9
-div._2r4TK4BAuU-J4FuF_O7v_5
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ
+{
+	order: 1 !important;
+	position: relative !important;
+	height: var(--loew-details-hero-height) !important;
+	min-height: var(--loew-details-hero-height) !important;
+	margin: 0 !important;
+	overflow: hidden !important;
+	background: var(--adw-window-bg) !important;
+	color: var(--adw-window-fg) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1U7LKpx70kEsz3jJwAFOi-
+{
+	order: 2 !important;
+	position: relative !important;
+	width: 100% !important;
+	height: var(--loew-details-playbar-height) !important;
+	min-height: var(--loew-details-playbar-height) !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	overflow: visible !important;
+	background: var(--adw-window-bg) !important;
+	border-bottom: 1px solid color-mix(in srgb, var(--adw-window-fg) var(--adw-border-opacity), transparent) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._27RcNu8aXKBpYkHcNNrt-X
+{
+	order: 3 !important;
+}
+
+/* Hero art: full-bleed, no v4 side-mask treatment. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ div.NZMJ6g2iVnFsOOp-lDmIP
+{
+	height: 100% !important;
+	min-height: 100% !important;
+	transform: none !important;
+	will-change: auto !important;
+	background-attachment: scroll !important;
+	background-image: none !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ div.QlR9EFwTdUNm_J5vx54_Z,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
 {
 	width: 100% !important;
-	max-width: none !important;
-	box-sizing: border-box !important;
+	height: 100% !important;
+	transform: none !important;
+	mask-image: none !important;
+	-webkit-mask-image: none !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ .HNbe3eZf6H7dtJ042x1vM
+{
 	margin: 0 !important;
-	padding: 0 0 24px !important;
+	object-fit: cover !important;
+	object-position: center 42% !important;
+	filter: saturate(.97) contrast(1.02) !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2gZXhRmKUk68pA28-5ZmGQ::after
+{
+	content: "" !important;
+	position: absolute !important;
+	inset: 0 !important;
+	z-index: 1 !important;
+	pointer-events: none !important;
+	background:
+		linear-gradient(
+			to bottom,
+			transparent 0%,
+			transparent 63%,
+			color-mix(in srgb, var(--adw-window-bg) 18%, transparent) 76%,
+			color-mix(in srgb, var(--adw-window-bg) 68%, transparent) 92%,
+			var(--adw-window-bg) 100%
+		) !important;
+	box-shadow: inset 0 1px 0 color-mix(in srgb, currentColor var(--adw-border-opacity), transparent) !important;
 }
 
 /*
- * Right column becomes normal page content.
- * It can remain visible while scrolling, but it is no longer a separate rail.
+ * Compact Play/options bar.
+ * We are only undoing v4's large absolute "header composition";
+ * the actual controls and their behavior stay Steam's.
  */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div[class*="appdetailsoverview_RightColumn_"],
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2aor4XVOYzN1PBSREk0UbO
+div._1U7LKpx70kEsz3jJwAFOi- div._3fLo166MlaNqP8r8tTyRz
 {
-	position: sticky !important;
-	z-index: auto !important;
-	top: 16px !important;
-	right: auto !important;
-	bottom: auto !important;
+	width: min(100%, var(--loew-details-max-width)) !important;
+	max-width: var(--loew-details-max-width) !important;
+	height: 100% !important;
+	box-sizing: border-box !important;
+	margin: 0 auto !important;
+	padding: 10px 24px !important;
+	background: none !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._3Y87YQY56ZCOqhgcZFaDc5
+{
+	position: relative !important;
+	display: flex !important;
+	align-items: center !important;
+	gap: 10px !important;
 	width: 100% !important;
-	max-width: none !important;
-	height: max-content !important;
+	height: 48px !important;
+	box-sizing: border-box !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	overflow: visible !important;
+}
+
+/* The large v4 game-icon/title composition is redundant with the hero. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._2MBVRXpsw6DUjs7937DWZW
+{
+	display: none !important;
+}
+
+/* Play button back into normal flow. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._1FnJ6dPuknQFQ2RTpKTI16
+{
+	position: relative !important;
+	top: auto !important;
+	right: auto !important;
+	left: auto !important;
+	bottom: auto !important;
+	min-width: 140px !important;
+	height: 44px !important;
+	margin: 0 !important;
+	flex: 0 0 auto !important;
+}
+
+/* Manage/options button beside Play. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._3oddBTkj_FjknCgBnPqcmQ,
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._1bIMOmWaxKrMdVMWU21ku
+{
+	position: relative !important;
+	top: auto !important;
+	right: auto !important;
+	left: auto !important;
+	bottom: auto !important;
+	margin: 0 !important;
+	flex: 0 0 auto !important;
+}
+
+/* Status/stats occupy the middle of the compact bar. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div._1mDAVT4sTzFRwJtlKCw2Ws
+{
+	position: relative !important;
+	left: auto !important;
+	right: auto !important;
+	top: auto !important;
+	bottom: auto !important;
+	width: auto !important;
+	height: 44px !important;
+	min-width: 0 !important;
+	box-sizing: border-box !important;
+	margin: 0 !important;
+	padding: 0 8px !important;
+	flex: 1 1 auto !important;
+	display: flex !important;
+	align-items: center !important;
+	mask-image: none !important;
+	-webkit-mask-image: none !important;
+}
+
+/* Deck/controller compatibility belongs at the far right of the bar. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
+div._1U7LKpx70kEsz3jJwAFOi- div.IIJeieZ-ZPRfIULY7uSDG
+{
+	position: relative !important;
+	right: auto !important;
+	left: auto !important;
+	top: auto !important;
+	bottom: auto !important;
+	width: auto !important;
+	min-width: 0 !important;
+	margin: 0 0 0 auto !important;
+	flex: 0 1 auto !important;
+}
+
+/*
+ * Desktop content.
+ * The info column is positioned next to Activity without becoming its own
+ * full-height background surface.
+ */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div.OhSdLYuggDtBcWjYP0j_9
+{
+	width: auto !important;
+	max-width: var(--loew-details-max-width) !important;
+	box-sizing: border-box !important;
+	margin: 0 auto !important;
+	padding: 24px calc(var(--loew-details-side-width) + var(--loew-details-gap) + 24px) 32px 24px !important;
+}
+
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
+{
+	position: absolute !important;
+	z-index: 3 !important;
+	top: calc(var(--loew-details-hero-height) + var(--loew-details-playbar-height) + 24px) !important;
+	right: max(24px, calc((100% - var(--loew-details-max-width)) / 2 + 24px)) !important;
+	bottom: auto !important;
+	width: var(--loew-details-side-width) !important;
+	height: auto !important;
 	max-height: none !important;
 	box-sizing: border-box !important;
 	margin: 0 !important;
@@ -93,65 +259,26 @@ div._2aor4XVOYzN1PBSREk0UbO
 	animation: none !important;
 }
 
-/* Give right-column modules breathing room instead of forming one grey wall. */
+/* The sidebar's own sections become normal floating modules. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2aor4XVOYzN1PBSREk0UbO > div,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2aor4XVOYzN1PBSREk0UbO
-div._2r4TK4BAuU-J4FuF_O7v_5
+div._2aor4XVOYzN1PBSREk0UbO div._2r4TK4BAuU-J4FuF_O7v_5
 {
 	margin: 0 0 20px !important;
+	padding: 0 !important;
 }
 
-/*
- * Hero: keep Steam's artwork dominant.
- * Remove v4's side crop/mask and blend the image softly into the page.
- * Play/options themselves are not restyled here.
- */
+/* Primary sections use the full primary-column width. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2gZXhRmKUk68pA28-5ZmGQ
-{
-	overflow: hidden !important;
-	background: var(--adw-window-bg) !important;
-}
-
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2gZXhRmKUk68pA28-5ZmGQ
-.HNbe3eZf6H7dtJ042x1vM
+div.OhSdLYuggDtBcWjYP0j_9 div._3yTl3RiWfo-Itg-xp967wP
 {
 	width: 100% !important;
+	max-width: none !important;
+	box-sizing: border-box !important;
 	margin: 0 !important;
-	object-fit: cover !important;
-	object-position: center 42% !important;
-	mask-image: none !important;
-	-webkit-mask-image: none !important;
-	filter: saturate(0.96) contrast(1.02) !important;
+	padding: 0 0 24px !important;
 }
 
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._2gZXhRmKUk68pA28-5ZmGQ::after
-{
-	content: "" !important;
-	position: absolute !important;
-	inset: 0 !important;
-	z-index: 1 !important;
-	pointer-events: none !important;
-	background:
-		linear-gradient(
-			to bottom,
-			transparent 0%,
-			transparent 58%,
-			color-mix(in srgb, var(--adw-window-bg) 18%, transparent) 72%,
-			color-mix(in srgb, var(--adw-window-bg) 72%, transparent) 90%,
-			var(--adw-window-bg) 100%
-		) !important;
-	box-shadow: inset 0 1px 0 color-mix(in srgb, currentColor var(--adw-border-opacity), transparent) !important;
-}
-
-/*
- * Activity: individual cards rather than one compressed list.
- * This also prevents the date/event text from visually colliding with cards.
- */
+/* Activity/news gets clear card rhythm. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div.S2Fu9HxHCA5MaCLGrN2ib > div > div.UVeN0kaD3zv1feMj_mMw5,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
@@ -165,84 +292,54 @@ div._31ptFGGMZrSQc5BCX1e5lm > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5
 	overflow: hidden !important;
 }
 
-/* Reset list-specific corner rules now that every event is its own card. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.S2Fu9HxHCA5MaCLGrN2ib > div > div.UVeN0kaD3zv1feMj_mMw5,
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.S2Fu9HxHCA5MaCLGrN2ib > div > div.Panel > div.UVeN0kaD3zv1feMj_mMw5
-{
-	border-top-left-radius: var(--adw-card-radius) !important;
-	border-top-right-radius: var(--adw-card-radius) !important;
-	border-bottom-left-radius: var(--adw-card-radius) !important;
-	border-bottom-right-radius: var(--adw-card-radius) !important;
-}
-
-/* Event/date metadata gets its own line above content instead of sitting on it. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div._1ujzuoxGhLunHZQqHAqRgg
+/* Date/event metadata gets a line of its own. */
+body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._1ujzuoxGhLunHZQqHAqRgg
 {
 	position: relative !important;
 	display: block !important;
 	width: auto !important;
 	height: auto !important;
 	min-height: 18px !important;
-	margin: 18px 4px 8px !important;
+	margin: 16px 4px 8px !important;
 	padding: 0 !important;
 	overflow: visible !important;
 	-webkit-line-clamp: unset !important;
 }
 
-/* Section headings read as page structure, not card contents. */
-body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-div.OhSdLYuggDtBcWjYP0j_9 h2._1Q2q_tQ9_Eq8YdEHNAHS3F
-{
-	margin: 0 0 8px !important;
-}
-
-/* Keep major news/update artwork generous. */
+/* Major update artwork stays present without taking over the row. */
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2gv3EsHSu5dMQyMqaz-W9t > div.ddB5GVHCwLezhshXUMCNL,
 body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
 div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
 {
-	width: clamp(220px, 32%, 360px) !important;
+	width: clamp(220px, 34%, 360px) !important;
 	min-width: 220px !important;
 	max-width: 360px !important;
 }
 
-/*
- * Responsive collapse.
- * At medium sizes the info column joins the normal flow and becomes a
- * compact two-column module grid. On narrow windows it becomes one column.
- */
-@media (max-width: 1080px)
+/* Medium window: drop the secondary column back into normal flow. */
+@media (max-width: 1120px)
 {
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-	div[class*="appdetailsoverview_Container_"],
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-	div._27RcNu8aXKBpYkHcNNrt-X
+	:root
 	{
-		grid-template-columns: minmax(0, 1fr) !important;
+		--loew-details-hero-height: clamp(280px, 32vw, 340px);
+	}
+
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div.OhSdLYuggDtBcWjYP0j_9
+	{
 		padding: 20px !important;
 	}
 
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-	div._2aor4XVOYzN1PBSREk0UbO
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
 	{
 		position: relative !important;
 		top: auto !important;
+		right: auto !important;
+		width: auto !important;
+		margin: 20px !important;
 		display: grid !important;
 		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 		gap: 16px !important;
-	}
-
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-	div._2aor4XVOYzN1PBSREk0UbO > div,
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-	div._2aor4XVOYzN1PBSREk0UbO
-	div._2r4TK4BAuU-J4FuF_O7v_5
-	{
-		margin: 0 !important;
 	}
 }
 
@@ -250,21 +347,19 @@ div._2tDv0EeJIdDmZLyfUE63t1 > div._1XpBItdUymdlwPZzvvOnyW
 {
 	:root
 	{
-		--adw-library-details-hero-image-height: 280px;
+		--loew-details-hero-height: 260px;
 	}
 
 	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-	div[class*="appdetailsoverview_Container_"],
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-	div._27RcNu8aXKBpYkHcNNrt-X
+	div._1U7LKpx70kEsz3jJwAFOi- div._3fLo166MlaNqP8r8tTyRz
 	{
-		padding: 16px !important;
-		gap: 16px !important;
+		padding-left: 12px !important;
+		padding-right: 12px !important;
 	}
 
-	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA
-	div._2aor4XVOYzN1PBSREk0UbO
+	body.DesktopUI div._2iE-78WxX2Pj4GHbq7YJiA div._2aor4XVOYzN1PBSREk0UbO
 	{
 		grid-template-columns: minmax(0, 1fr) !important;
+		margin: 16px !important;
 	}
 }
