@@ -1,3 +1,9 @@
+# About this fork
+
+This is Lauren's fork of [Adwaita for Steam by tkashkin](https://github.com/tkashkin/Adwaita-for-Steam). The upstream guide is preserved below, including its installation instructions, limitations, and credits.
+
+Use the instructions for the branch you are actually installing. Work in an open pull request is not necessarily included in the default branch.
+
 # Adwaita for Steam
 
 A skin to make Steam look more like a native GNOME app
